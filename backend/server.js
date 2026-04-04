@@ -16,7 +16,7 @@ const Gallery = require('./models/Gallery');
 const Career = require('./models/Career'); // New Career Model
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: 'https://stkabirpublicschool.in' }));
 app.use(express.json());
 
 const uploadsDir = path.join(__dirname, 'uploads');
@@ -77,10 +77,10 @@ app.post('/api/admissions', async (req, res) => {
 
     // Send Email Notification
     const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: process.env.RECEIVER_EMAIL,
-        subject: `New Admission Form: ${newAdmission.student_name}`,
-        html: `
+      from: process.env.EMAIL_USER,
+      to: process.env.RECEIVER_EMAIL,
+      subject: `New Admission Form: ${newAdmission.student_name}`,
+      html: `
             <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
                 <h2 style="color: #d11;">New Student Admission Request</h2>
                 <p><strong>Name:</strong> ${newAdmission.student_name}</p>
@@ -99,30 +99,30 @@ app.post('/api/admissions', async (req, res) => {
 });
 
 app.delete('/api/admissions/:id', auth, async (req, res) => {
-    try { await Admission.findByIdAndDelete(req.params.id); res.json({ message: 'Deleted' }); } catch (err) { res.status(500).json({ message: err.message }); }
+  try { await Admission.findByIdAndDelete(req.params.id); res.json({ message: 'Deleted' }); } catch (err) { res.status(500).json({ message: err.message }); }
 });
 
 // --- Career ---
 app.post('/api/career', upload.single('resume'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ message: 'Resume is required' });
-    
+
     const careerData = {
-        name: req.body.name,
-        email: req.body.email,
-        phone: req.body.phone,
-        position: req.body.position,
-        resume_url: `/uploads/${req.file.filename}`
+      name: req.body.name,
+      email: req.body.email,
+      phone: req.body.phone,
+      position: req.body.position,
+      resume_url: `/uploads/${req.file.filename}`
     };
     const newCareer = new Career(careerData);
     await newCareer.save();
 
     // Send Email to Admin with Resume Attachment
     const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: process.env.RECEIVER_EMAIL,
-        subject: `Job Application: ${newCareer.position} - ${newCareer.name}`,
-        html: `
+      from: process.env.EMAIL_USER,
+      to: process.env.RECEIVER_EMAIL,
+      subject: `Job Application: ${newCareer.position} - ${newCareer.name}`,
+      html: `
             <div style="font-family: sans-serif; padding: 20px;">
                 <h2 style="color: #2563eb;">New Job Application Received</h2>
                 <p><strong>Applicant Name:</strong> ${newCareer.name}</p>
@@ -132,12 +132,12 @@ app.post('/api/career', upload.single('resume'), async (req, res) => {
                 <p>Attached is the resume of the applicant.</p>
             </div>
         `,
-        attachments: [
-            {
-                filename: req.file.originalname,
-                path: req.file.path
-            }
-        ]
+      attachments: [
+        {
+          filename: req.file.originalname,
+          path: req.file.path
+        }
+      ]
     };
     transporter.sendMail(mailOptions).catch(err => console.log('Career Email Error:', err));
 
@@ -163,10 +163,10 @@ app.post('/api/gallery', auth, upload.array('images', 10), async (req, res) => {
   try {
     if (!req.files || req.files.length === 0) return res.status(400).json({ message: 'Images required' });
     const results = [];
-    for(const file of req.files) {
-        const item = new Gallery({ title: req.body.title, image_url: `/uploads/${file.filename}` });
-        await item.save();
-        results.push(item);
+    for (const file of req.files) {
+      const item = new Gallery({ title: req.body.title, image_url: `/uploads/${file.filename}` });
+      await item.save();
+      results.push(item);
     }
     res.status(201).json(results);
   } catch (err) { res.status(500).json({ message: err.message }); }
@@ -183,5 +183,5 @@ app.delete('/api/gallery/:id', auth, async (req, res) => {
   } catch (err) { res.status(500).json({ message: err.message }); }
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 7009;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
