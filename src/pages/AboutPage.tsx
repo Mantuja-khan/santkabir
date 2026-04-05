@@ -12,9 +12,9 @@ const AboutPage = () => (
     {/* Hero */}
     <section className="relative py-24 overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <img 
-          src="https://i.pinimg.com/1200x/63/54/0d/63540d3056c21bdb9c62ef085f0e198d.jpg" 
-          alt="School" 
+        <img
+          src="https://i.pinimg.com/1200x/63/54/0d/63540d3056c21bdb9c62ef085f0e198d.jpg"
+          alt="School"
           className="w-full h-full object-cover brightness-50"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60"></div>
@@ -35,7 +35,7 @@ const AboutPage = () => (
           <p className="section-subtitle !text-left">Who We Are</p>
           <h2 className="font-display text-3xl text-foreground">A Legacy of Excellence in Education</h2>
           <p className="text-muted-foreground leading-relaxed">
-            Sant Kabir Public Sr. Sec. School, situated at Nandrampur Bass road, Alawalpur, is a premier educational institution providing quality education from Nursery to Class 12th. Our school is committed to nurturing the intellectual, physical, emotional, and social development of every student.
+            St.Kabir Public Sr. Sec. School, situated at Nandrampur Bass road, Alawalpur, is a premier educational institution providing quality education from Nursery to Class 12th. Our school is committed to nurturing the intellectual, physical, emotional, and social development of every student.
           </p>
           <p className="text-muted-foreground leading-relaxed">
             With a team of over 100 dedicated and experienced teachers, state-of-the-art infrastructure, and a student-centered approach, we ensure that each child receives personalized attention and the best learning experience.

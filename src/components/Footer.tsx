@@ -9,12 +9,12 @@ const Footer = () => (
       <div>
         <div className="flex items-center gap-4 mb-6">
           <div className="bg-white p-2 md:p-3 rounded-2xl shadow-xl border-4 border-white/10 flex items-center justify-center">
-            <img src={schoolLogo} alt="Sant Kabir Logo" className="w-10 h-10 md:w-14 md:h-14 object-contain" />
+            <img src={schoolLogo} alt="St.Kabir Logo" className="w-10 h-10 md:w-14 md:h-14 object-contain" />
           </div>
-          <h3 className="font-display text-xl md:text-2xl text-accent leading-tight uppercase tracking-tight">Sant Kabir Public<br />Sr. Sec. School</h3>
+          <h3 className="font-display text-xl md:text-2xl text-accent leading-tight uppercase tracking-tight">St.Kabir Public<br />Sr. Sec. School</h3>
         </div>
         <p className="text-sm opacity-80 leading-relaxed mb-6">
-          Established with a vision to provide excellence in education, Sant Kabir Public Sr. Sec. School at Dharuhera stands as a pillar of academic success and character building. We nurture young minds from Nursery to Class 12th using modern facilities, digital classrooms, and a student-centric approach. Our dedicated faculty ensures every child achieves their maximum potential in a safe, caring, and disciplined environment.
+          Established with a vision to provide excellence in education, St.Kabir Public Sr. Sec. School at Dharuhera stands as a pillar of academic success and character building. We nurture young minds from Nursery to Class 12th using modern facilities, digital classrooms, and a student-centric approach. Our dedicated faculty ensures every child achieves their maximum potential in a safe, caring, and disciplined environment.
         </p>
         <div className="flex gap-4">
           <a href="https://www.facebook.com/profile.php?id=100063849761727&rdid=6SV0NDdAMA6gXZ87&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F17rK498DKM%2F#" target="_blank" rel="noreferrer" className="w-10 h-10 bg-primary/20 hover:bg-primary rounded-full flex items-center justify-center transition-all">
@@ -67,7 +67,7 @@ const Footer = () => (
       </div>
     </div>
     <div className="border-t border-cream/20 text-center py-4 text-xs opacity-60">
-      © 2026 Sant Kabir Public Sr. Sec. School. All rights reserved.
+      © 2026 St.Kabir Public Sr. Sec. School. All rights reserved.
     </div>
   </footer>
 );

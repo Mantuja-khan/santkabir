@@ -77,7 +77,7 @@ const AdminDashboard = () => {
 
   const fetchData = async () => {
     setLoading(true);
-    
+
     // Fetch admissions independently (protected)
     try {
       const { data } = await api.get("/admissions");
@@ -205,31 +205,31 @@ const AdminDashboard = () => {
 
   const saveGallery = async () => {
     if (!galleryForm.title || galleryFiles.length === 0) {
-        toast({ title: "Title and at least one Image are required", variant: "destructive" });
-        return;
+      toast({ title: "Title and at least one Image are required", variant: "destructive" });
+      return;
     }
 
     setUploading(true);
     const formData = new FormData();
     formData.append("title", galleryForm.title);
     galleryFiles.forEach(file => {
-        formData.append("images", file);
+      formData.append("images", file);
     });
 
     try {
-        await api.post("/gallery", formData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-        });
-        toast({ title: "Photos uploaded successfully!" });
-        setGalleryDialog(false);
-        setGalleryFiles([]);
-        setGalleryPreviews([]);
-        setGalleryForm({ title: "" });
-        fetchData();
+      await api.post("/gallery", formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      toast({ title: "Photos uploaded successfully!" });
+      setGalleryDialog(false);
+      setGalleryFiles([]);
+      setGalleryPreviews([]);
+      setGalleryForm({ title: "" });
+      fetchData();
     } catch (err) {
-        toast({ title: "Error uploading images", variant: "destructive" });
+      toast({ title: "Error uploading images", variant: "destructive" });
     } finally {
-        setUploading(false);
+      setUploading(false);
     }
   };
 
@@ -248,8 +248,8 @@ const AdminDashboard = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-card">
         <div className="flex flex-col items-center gap-4">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-            <p className="text-primary font-display animate-pulse">Loading Dashboard...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+          <p className="text-primary font-display animate-pulse">Loading Dashboard...</p>
         </div>
       </div>
     );
@@ -260,50 +260,50 @@ const AdminDashboard = () => {
       {/* Sidebar */}
       <aside className="w-full md:w-64 bg-secondary text-secondary-foreground flex flex-col h-auto md:h-screen sticky top-0 z-50">
         <div className="p-6 border-b border-secondary-foreground/10">
-          <h1 className="font-display text-2xl tracking-tighter">SANT KABIR</h1>
+          <h1 className="font-display text-2xl tracking-tighter">St.KABIR</h1>
           <p className="text-[10px] uppercase tracking-widest opacity-60 font-bold">Admin Portal</p>
         </div>
-        
+
         <nav className="flex-grow p-4 space-y-2">
-            {[
-                { id: "admissions", icon: Users, label: "Admissions" },
-                { id: "syllabus", icon: BookOpen, label: "Syllabus" },
-                { id: "gallery", icon: ImageIcon, label: "Gallery" },
-            ].map((item) => (
-                <button
-                    key={item.id}
-                    onClick={() => setActiveTab(item.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${activeTab === item.id ? "bg-primary text-primary-foreground shadow-lg scale-105" : "hover:bg-white/10"}`}
-                >
-                    <item.icon className="w-5 h-5" />
-                    <span className="font-semibold text-sm">{item.label}</span>
-                    {activeTab === item.id && <ChevronRight className="w-4 h-4 ml-auto" />}
-                </button>
-            ))}
+          {[
+            { id: "admissions", icon: Users, label: "Admissions" },
+            { id: "syllabus", icon: BookOpen, label: "Syllabus" },
+            { id: "gallery", icon: ImageIcon, label: "Gallery" },
+          ].map((item) => (
+            <button
+              key={item.id}
+              onClick={() => setActiveTab(item.id)}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${activeTab === item.id ? "bg-primary text-primary-foreground shadow-lg scale-105" : "hover:bg-white/10"}`}
+            >
+              <item.icon className="w-5 h-5" />
+              <span className="font-semibold text-sm">{item.label}</span>
+              {activeTab === item.id && <ChevronRight className="w-4 h-4 ml-auto" />}
+            </button>
+          ))}
         </nav>
 
         <div className="p-4 border-t border-secondary-foreground/10">
-            <Button variant="ghost" className="w-full text-secondary-foreground hover:bg-destructive/20 hover:text-destructive flex items-center justify-start gap-3 py-6" onClick={handleLogout}>
-                <LogOut className="w-5 h-5" />
-                <span className="font-bold">Logout</span>
-            </Button>
+          <Button variant="ghost" className="w-full text-secondary-foreground hover:bg-destructive/20 hover:text-destructive flex items-center justify-start gap-3 py-6" onClick={handleLogout}>
+            <LogOut className="w-5 h-5" />
+            <span className="font-bold">Logout</span>
+          </Button>
         </div>
       </aside>
 
       {/* Main Content */}
       <main className="flex-grow p-4 md:p-10 overflow-y-auto bg-slate-50/50">
         <header className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
-            <div>
-                <h2 className="font-display text-3xl md:text-4xl text-foreground capitalize">{activeTab}</h2>
-                <p className="text-muted-foreground mt-1">Manage your school's {activeTab} data efficiently.</p>
+          <div>
+            <h2 className="font-display text-3xl md:text-4xl text-foreground capitalize">{activeTab}</h2>
+            <p className="text-muted-foreground mt-1">Manage your school's {activeTab} data efficiently.</p>
+          </div>
+          <div className="flex items-center gap-4 bg-white p-2 rounded-2xl shadow-sm border border-border">
+            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">A</div>
+            <div className="hidden md:block">
+              <p className="text-xs font-bold leading-none">Administrator</p>
+              <p className="text-[10px] text-muted-foreground mt-1">santkabirschool@gmail.com</p>
             </div>
-            <div className="flex items-center gap-4 bg-white p-2 rounded-2xl shadow-sm border border-border">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">A</div>
-                <div className="hidden md:block">
-                    <p className="text-xs font-bold leading-none">Administrator</p>
-                    <p className="text-[10px] text-muted-foreground mt-1">santkabirschool@gmail.com</p>
-                </div>
-            </div>
+          </div>
         </header>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -312,16 +312,16 @@ const AdminDashboard = () => {
             <div className="bg-white rounded-3xl shadow-xl shadow-primary/5 p-6 border border-border">
               <div className="flex flex-col md:flex-row justify-between md:items-center mb-6 gap-4">
                 <h3 className="font-display text-xl text-foreground flex items-center gap-3">
-                    <div className="p-2 bg-blue-50 text-blue-600 rounded-lg"><Users className="w-5 h-5" /></div>
-                    Active Applications
+                  <div className="p-2 bg-blue-50 text-blue-600 rounded-lg"><Users className="w-5 h-5" /></div>
+                  Active Applications
                 </h3>
                 <div className="px-4 py-2 bg-slate-100 rounded-full text-xs font-bold text-slate-600 uppercase tracking-widest">{admissions.length} Total</div>
               </div>
 
               {admissions.length === 0 ? (
                 <div className="text-center py-20 bg-slate-50/50 rounded-2xl border-2 border-dashed border-slate-200">
-                    <Users className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-                    <p className="text-muted-foreground font-medium">No applications received yet.</p>
+                  <Users className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                  <p className="text-muted-foreground font-medium">No applications received yet.</p>
                 </div>
               ) : (
                 <div className="overflow-x-auto rounded-xl border border-slate-100">
@@ -381,8 +381,8 @@ const AdminDashboard = () => {
             <div className="bg-white rounded-3xl shadow-xl shadow-primary/5 p-6 border border-border">
               <div className="flex flex-col md:flex-row justify-between md:items-center mb-8 gap-4">
                 <h3 className="font-display text-xl text-foreground flex items-center gap-3">
-                    <div className="p-2 bg-purple-50 text-purple-600 rounded-lg"><BookOpen className="w-5 h-5" /></div>
-                    Academic Syllabus
+                  <div className="p-2 bg-purple-50 text-purple-600 rounded-lg"><BookOpen className="w-5 h-5" /></div>
+                  Academic Syllabus
                 </h3>
                 <Dialog open={syllabusDialog} onOpenChange={setSyllabusDialog}>
                   <DialogTrigger asChild>
@@ -422,8 +422,8 @@ const AdminDashboard = () => {
 
               {syllabus.length === 0 ? (
                 <div className="text-center py-20 bg-slate-50/50 rounded-2xl border-2 border-dashed border-slate-200">
-                    <BookOpen className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-                    <p className="text-muted-foreground font-medium">No syllabus entries found.</p>
+                  <BookOpen className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                  <p className="text-muted-foreground font-medium">No syllabus entries found.</p>
                 </div>
               ) : (
                 <div className="overflow-x-auto rounded-xl border border-slate-100">
@@ -444,9 +444,9 @@ const AdminDashboard = () => {
                           <TableCell className="font-bold text-primary">{s.class_name}</TableCell>
                           <TableCell className="text-xs max-w-xs overflow-hidden">
                             <div className="flex flex-wrap gap-1">
-                                {s.subjects.map((sub, si) => (
-                                    <span key={si} className="px-2 py-0.5 bg-slate-100 rounded text-slate-600 font-medium">{sub}</span>
-                                ))}
+                              {s.subjects.map((sub, si) => (
+                                <span key={si} className="px-2 py-0.5 bg-slate-100 rounded text-slate-600 font-medium">{sub}</span>
+                              ))}
                             </div>
                           </TableCell>
                           <TableCell className="font-bold text-slate-600">{s.sort_order}</TableCell>
@@ -472,12 +472,12 @@ const AdminDashboard = () => {
             <div className="bg-white rounded-3xl shadow-xl shadow-primary/5 p-6 border border-border">
               <div className="flex flex-col md:flex-row justify-between md:items-center mb-8 gap-4">
                 <h3 className="font-display text-xl text-foreground flex items-center gap-3">
-                    <div className="p-2 bg-pink-50 text-pink-600 rounded-lg"><ImageIcon className="w-5 h-5" /></div>
-                    School Media Gallery
+                  <div className="p-2 bg-pink-50 text-pink-600 rounded-lg"><ImageIcon className="w-5 h-5" /></div>
+                  School Media Gallery
                 </h3>
                 <Dialog open={galleryDialog} onOpenChange={(val) => {
-                    setGalleryDialog(val);
-                    if (!val) { setGalleryPreviews([]); setGalleryFiles([]); setGalleryForm({ title: "" }); }
+                  setGalleryDialog(val);
+                  if (!val) { setGalleryPreviews([]); setGalleryFiles([]); setGalleryForm({ title: "" }); }
                 }}>
                   <DialogTrigger asChild>
                     <Button onClick={() => setGalleryDialog(true)} className="rounded-xl font-bold px-6 shadow-lg shadow-pink-500/20 bg-pink-600 hover:bg-pink-700 text-white"><Plus className="w-4 h-4 mr-2" /> Upload Multiple</Button>
@@ -488,47 +488,47 @@ const AdminDashboard = () => {
                     </DialogHeader>
                     <div className="space-y-6 py-4">
                       {galleryPreviews.length > 0 ? (
-                          <div className="grid grid-cols-3 gap-3 max-h-[300px] overflow-y-auto p-2 border-2 border-slate-50 rounded-2xl">
-                            {galleryPreviews.map((pre, idx) => (
-                                <div key={idx} className="relative rounded-xl overflow-hidden aspect-square group shadow-sm">
-                                    <img src={pre} alt="Preview" className="w-full h-full object-cover" />
-                                    <button 
-                                        onClick={() => removeFile(idx)}
-                                        className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                                    >
-                                        <X className="w-3 h-3" />
-                                    </button>
-                                </div>
-                            ))}
-                            <button 
-                                onClick={() => document.getElementById('file-upload-more')?.click()}
-                                className="border-2 border-dashed border-slate-200 rounded-xl aspect-square flex items-center justify-center text-slate-300 hover:text-primary hover:border-primary/20 transition-all"
-                            >
-                                <Plus className="w-8 h-8" />
-                            </button>
-                            <input id="file-upload-more" type="file" className="hidden" accept="image/*" multiple onChange={handleFileChange} />
-                          </div>
+                        <div className="grid grid-cols-3 gap-3 max-h-[300px] overflow-y-auto p-2 border-2 border-slate-50 rounded-2xl">
+                          {galleryPreviews.map((pre, idx) => (
+                            <div key={idx} className="relative rounded-xl overflow-hidden aspect-square group shadow-sm">
+                              <img src={pre} alt="Preview" className="w-full h-full object-cover" />
+                              <button
+                                onClick={() => removeFile(idx)}
+                                className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
+                            </div>
+                          ))}
+                          <button
+                            onClick={() => document.getElementById('file-upload-more')?.click()}
+                            className="border-2 border-dashed border-slate-200 rounded-xl aspect-square flex items-center justify-center text-slate-300 hover:text-primary hover:border-primary/20 transition-all"
+                          >
+                            <Plus className="w-8 h-8" />
+                          </button>
+                          <input id="file-upload-more" type="file" className="hidden" accept="image/*" multiple onChange={handleFileChange} />
+                        </div>
                       ) : (
-                        <div 
-                            className="border-4 border-dashed border-slate-100 rounded-3xl aspect-[16/6] flex flex-col items-center justify-center gap-3 transition-colors hover:border-primary/20 hover:bg-slate-50 cursor-pointer relative"
-                            onClick={() => document.getElementById('file-upload')?.click()}
+                        <div
+                          className="border-4 border-dashed border-slate-100 rounded-3xl aspect-[16/6] flex flex-col items-center justify-center gap-3 transition-colors hover:border-primary/20 hover:bg-slate-50 cursor-pointer relative"
+                          onClick={() => document.getElementById('file-upload')?.click()}
                         >
-                            <div className="p-4 bg-primary/5 text-primary rounded-full">
-                                <Files className="w-8 h-8" />
-                            </div>
-                            <div className="text-center">
-                                <p className="text-sm font-bold text-slate-600">Click to choose multiple photos</p>
-                                <p className="text-[10px] text-muted-foreground uppercase tracking-widest mt-1">PNG, JPG up to 5MB each</p>
-                            </div>
-                            <input id="file-upload" type="file" className="hidden" accept="image/*" multiple onChange={handleFileChange} />
+                          <div className="p-4 bg-primary/5 text-primary rounded-full">
+                            <Files className="w-8 h-8" />
+                          </div>
+                          <div className="text-center">
+                            <p className="text-sm font-bold text-slate-600">Click to choose multiple photos</p>
+                            <p className="text-[10px] text-muted-foreground uppercase tracking-widest mt-1">PNG, JPG up to 5MB each</p>
+                          </div>
+                          <input id="file-upload" type="file" className="hidden" accept="image/*" multiple onChange={handleFileChange} />
                         </div>
                       )}
-                      
+
                       <div className="space-y-2">
                         <Label className="font-bold text-xs uppercase tracking-widest text-slate-400">All Photos Title</Label>
                         <Input value={galleryForm.title} onChange={(e) => setGalleryForm((p) => ({ ...p, title: e.target.value }))} placeholder="e.g. Annual Sports Meet 2024" className="rounded-xl h-12 border-2" />
                       </div>
-                      
+
                       <Button onClick={saveGallery} className="w-full h-12 rounded-xl font-bold text-lg bg-pink-600 shadow-lg shadow-pink-500/20 text-white" disabled={galleryFiles.length === 0 || !galleryForm.title || uploading}>
                         {uploading ? `Uploading ${galleryFiles.length} images...` : `Start Upload (${galleryFiles.length} files)`}
                       </Button>
@@ -539,8 +539,8 @@ const AdminDashboard = () => {
 
               {gallery.length === 0 ? (
                 <div className="text-center py-20 bg-slate-50/50 rounded-2xl border-2 border-dashed border-slate-200">
-                    <ImageIcon className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-                    <p className="text-muted-foreground font-medium">No photos uploaded yet.</p>
+                  <ImageIcon className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                  <p className="text-muted-foreground font-medium">No photos uploaded yet.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -549,12 +549,12 @@ const AdminDashboard = () => {
                       <div className="relative aspect-square">
                         <img src={`${BACKEND_URL}${g.image_url}`} alt={g.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-end">
-                            <p className="text-white font-bold text-sm truncate">{g.title}</p>
+                          <p className="text-white font-bold text-sm truncate">{g.title}</p>
                         </div>
                       </div>
                       <div className="p-2 border-t border-slate-50">
                         <Button variant="ghost" size="sm" className="w-full text-destructive hover:bg-red-50 hover:text-red-600 font-bold text-[10px] uppercase tracking-widest" onClick={() => deleteGallery(g._id)}>
-                            <Trash2 className="w-3 h-3 mr-2" /> Delete
+                          <Trash2 className="w-3 h-3 mr-2" /> Delete
                         </Button>
                       </div>
                     </div>

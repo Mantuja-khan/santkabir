@@ -66,7 +66,7 @@ const CareerPage = () => {
             <CheckCircle2 className="w-12 h-12 text-green-600" />
           </div>
           <h2 className="font-display text-3xl text-foreground mb-4">Application Received!</h2>
-          <p className="text-muted-foreground mb-8 text-lg">Thank you for your interest in joining Sant Kabir Public School. We have received your resume and will get back to you if your profile matches our requirements.</p>
+          <p className="text-muted-foreground mb-8 text-lg">Thank you for your interest in joining St.Kabir Public School. We have received your resume and will get back to you if your profile matches our requirements.</p>
           <Link to="/">
             <Button className="w-full rounded-full py-6 font-bold text-lg">Back to Home</Button>
           </Link>
@@ -80,9 +80,9 @@ const CareerPage = () => {
       {/* Hero */}
       <section className="relative py-28 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img 
-            src="https://i.pinimg.com/1200x/63/54/0d/63540d3056c21bdb9c62ef085f0e198d.jpg" 
-            alt="School Campus" 
+          <img
+            src="https://i.pinimg.com/1200x/63/54/0d/63540d3056c21bdb9c62ef085f0e198d.jpg"
+            alt="School Campus"
             className="w-full h-full object-cover brightness-[0.35]"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900/40"></div>
@@ -98,18 +98,18 @@ const CareerPage = () => {
           <div className="bg-white rounded-[3rem] shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[600px] reveal-on-scroll">
             {/* Left Side: Info & Image */}
             <div className="md:w-5/12 relative aspect-[4/3] md:aspect-auto flex flex-col justify-center overflow-hidden min-h-[350px]">
-              <img 
-                src="https://i.pinimg.com/736x/52/8b/2b/528b2be8affeeecc17e36d3a98d39c52.jpg" 
-                alt="Working at School" 
+              <img
+                src="https://i.pinimg.com/736x/52/8b/2b/528b2be8affeeecc17e36d3a98d39c52.jpg"
+                alt="Working at School"
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-primary/80 backdrop-blur-[2px]"></div>
-              
+
               <div className="relative z-10 p-8 md:p-12 text-white">
                 <Briefcase className="w-12 h-12 md:w-16 md:h-16 mb-6 md:mb-8 text-white/40" />
                 <h2 className="font-display text-2xl md:text-3xl mb-4 md:mb-6">Work With Us</h2>
                 <p className="text-white/90 text-sm md:text-base leading-relaxed mb-6 md:mb-8">
-                  At Sant Kabir Public School, we value innovation, dedication, and a love for teaching. Join a community that supports your growth and empowers you to make a difference.
+                  At St.Kabir Public School, we value innovation, dedication, and a love for teaching. Join a community that supports your growth and empowers you to make a difference.
                 </p>
                 <div className="space-y-3 md:space-y-4">
                   <div className="flex items-center gap-3 md:gap-4 text-xs md:text-sm font-semibold">
@@ -134,66 +134,66 @@ const CareerPage = () => {
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-sm font-bold">Full Name</Label>
-                    <Input 
-                      id="name" 
-                      required 
+                    <Input
+                      id="name"
+                      required
                       placeholder="Jane Doe"
                       className="rounded-xl border-slate-200 bg-slate-50/50 py-6"
                       value={formData.name}
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="email" className="text-sm font-bold">Email Address</Label>
-                      <Input 
-                        id="email" 
-                        type="email" 
-                        required 
+                      <Input
+                        id="email"
+                        type="email"
+                        required
                         placeholder="jane@example.com"
                         className="rounded-xl border-slate-200 bg-slate-50/50 py-6"
                         value={formData.email}
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="phone" className="text-sm font-bold">Phone Number</Label>
-                      <Input 
-                        id="phone" 
-                        type="tel" 
-                        required 
+                      <Input
+                        id="phone"
+                        type="tel"
+                        required
                         placeholder="+91 XXXXX XXXXX"
                         className="rounded-xl border-slate-200 bg-slate-50/50 py-6"
                         value={formData.phone}
-                        onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="position" className="text-sm font-bold">Position Applied For</Label>
-                    <Input 
-                      id="position" 
-                      required 
+                    <Input
+                      id="position"
+                      required
                       placeholder="e.g. PGT English, Sports Coach"
                       className="rounded-xl border-slate-200 bg-slate-50/50 py-6"
                       value={formData.position}
-                      onChange={(e) => setFormData({...formData, position: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, position: e.target.value })}
                     />
                   </div>
 
                   <div className="space-y-2">
                     <Label className="text-sm font-bold">Upload Resume (PDF/DOC)</Label>
                     <div className="relative">
-                      <input 
-                        type="file" 
+                      <input
+                        type="file"
                         id="resume"
                         className="hidden"
                         accept=".pdf,.doc,.docx"
                         onChange={(e) => setResume(e.target.files?.[0] || null)}
                       />
-                      <label 
+                      <label
                         htmlFor="resume"
                         className="flex items-center justify-center w-full p-8 border-2 border-dashed border-slate-200 rounded-2xl cursor-pointer hover:border-primary hover:bg-primary/5 transition-all group"
                       >
@@ -210,7 +210,7 @@ const CareerPage = () => {
                 <Button type="submit" className="w-full rounded-2xl py-8 font-display text-lg shadow-xl" disabled={loading}>
                   {loading ? "Sending Application..." : "Send Application"} <Send className="ml-3 w-5 h-5" />
                 </Button>
-                
+
                 <p className="text-[10px] text-center text-muted-foreground italic">
                   By applying, you agree to allow us to process your data for recruitment purposes.
                 </p>

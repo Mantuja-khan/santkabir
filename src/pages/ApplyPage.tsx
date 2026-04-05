@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 import { GraduationCap, Phone, User, Calendar, Users, ArrowRight, CheckCircle2 } from "lucide-react";
 
 const classes = [
-  "Nursery", "LKG", "UKG", 
-  "Class 1", "Class 2", "Class 3", "Class 4", "Class 5", 
+  "Nursery", "LKG", "UKG",
+  "Class 1", "Class 2", "Class 3", "Class 4", "Class 5",
   "Class 6", "Class 7", "Class 8", "Class 9", "Class 10",
   "Class 11", "Class 12"
 ];
@@ -61,7 +61,7 @@ const ApplyPage = () => {
             <CheckCircle2 className="w-12 h-12 text-green-600" />
           </div>
           <h2 className="font-display text-3xl text-foreground mb-4">Application Received!</h2>
-          <p className="text-muted-foreground mb-8 text-lg">Thank you for applying to Sant Kabir Public School. Our admissions team will review your application and contact you on the provided phone number shortly.</p>
+          <p className="text-muted-foreground mb-8 text-lg">Thank you for applying to St.Kabir Public School. Our admissions team will review your application and contact you on the provided phone number shortly.</p>
           <Link to="/">
             <Button className="w-full rounded-full py-6 font-bold text-lg">Back to Home</Button>
           </Link>
@@ -75,9 +75,9 @@ const ApplyPage = () => {
       {/* Hero section */}
       <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img 
-            src="https://i.pinimg.com/1200x/63/54/0d/63540d3056c21bdb9c62ef085f0e198d.jpg" 
-            alt="School Campus" 
+          <img
+            src="https://i.pinimg.com/1200x/63/54/0d/63540d3056c21bdb9c62ef085f0e198d.jpg"
+            alt="School Campus"
             className="w-full h-full object-cover brightness-50"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
@@ -93,9 +93,9 @@ const ApplyPage = () => {
           <div className="bg-white rounded-[2rem] shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[600px] reveal-on-scroll">
             {/* Left Side: School Image */}
             <div className="md:w-1/2 relative aspect-[4/3] md:aspect-auto h-auto min-h-[300px] md:h-auto">
-              <img 
-                src="https://i.pinimg.com/736x/52/8b/2b/528b2be8affeeecc17e36d3a98d39c52.jpg" 
-                alt="School Environment" 
+              <img
+                src="https://i.pinimg.com/736x/52/8b/2b/528b2be8affeeecc17e36d3a98d39c52.jpg"
+                alt="School Environment"
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent"></div>
@@ -109,25 +109,25 @@ const ApplyPage = () => {
                 </h2>
                 <p className="text-muted-foreground">Please fill in the details below to begin the enrollment process.</p>
               </div>
-              
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="student_name" className="text-sm font-semibold">Student Full Name</Label>
-                    <Input 
-                      id="student_name" 
-                      required 
+                    <Input
+                      id="student_name"
+                      required
                       placeholder="Enter student's name"
                       className="rounded-xl border-slate-200 focus:border-primary py-6 bg-slate-50/50"
                       value={formData.student_name}
-                      onChange={(e) => setFormData({...formData, student_name: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, student_name: e.target.value })}
                     />
                   </div>
-                  
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="class_applied" className="text-sm font-semibold">Class Seeking</Label>
-                      <Select onValueChange={(v) => setFormData({...formData, class_applied: v})} required>
+                      <Select onValueChange={(v) => setFormData({ ...formData, class_applied: v })} required>
                         <SelectTrigger className="rounded-xl border-slate-200 py-6 h-auto bg-slate-50/50">
                           <SelectValue placeholder="Select class" />
                         </SelectTrigger>
@@ -138,56 +138,56 @@ const ApplyPage = () => {
                         </SelectContent>
                       </Select>
                     </div>
-                    
+
                     <div className="space-y-2">
                       <Label htmlFor="age" className="text-sm font-semibold">Student Age</Label>
-                      <Input 
-                        id="age" 
-                        type="number" 
-                        required 
+                      <Input
+                        id="age"
+                        type="number"
+                        required
                         placeholder="Age"
                         className="rounded-xl border-slate-200 py-6 bg-slate-50/50"
                         value={formData.age}
-                        onChange={(e) => setFormData({...formData, age: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, age: e.target.value })}
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="phone_number" className="text-sm font-semibold">Parent's Mobile Number</Label>
-                    <Input 
-                      id="phone_number" 
-                      type="tel" 
-                      required 
+                    <Input
+                      id="phone_number"
+                      type="tel"
+                      required
                       placeholder="+91 XXXXX XXXXX"
                       className="rounded-xl border-slate-200 py-6 bg-slate-50/50"
                       value={formData.phone_number}
-                      onChange={(e) => setFormData({...formData, phone_number: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="father_name" className="text-sm font-semibold">Father's Name</Label>
-                      <Input 
-                        id="father_name" 
-                        required 
+                      <Input
+                        id="father_name"
+                        required
                         placeholder="Father's name"
                         className="rounded-xl border-slate-200 py-6 bg-slate-50/50"
                         value={formData.father_name}
-                        onChange={(e) => setFormData({...formData, father_name: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, father_name: e.target.value })}
                       />
                     </div>
-                    
+
                     <div className="space-y-2">
                       <Label htmlFor="mother_name" className="text-sm font-semibold">Mother's Name</Label>
-                      <Input 
-                        id="mother_name" 
-                        required 
+                      <Input
+                        id="mother_name"
+                        required
                         placeholder="Mother's name"
                         className="rounded-xl border-slate-200 py-6 bg-slate-50/50"
                         value={formData.mother_name}
-                        onChange={(e) => setFormData({...formData, mother_name: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, mother_name: e.target.value })}
                       />
                     </div>
                   </div>
@@ -196,7 +196,7 @@ const ApplyPage = () => {
                 <Button type="submit" className="w-full rounded-xl py-7 font-bold text-lg mt-4 shadow-lg hover:shadow-primary/20 transition-all active:scale-[0.98]" disabled={loading}>
                   {loading ? "Submitting..." : "Submit Application"} <ArrowRight className="ml-3 w-5 h-5" />
                 </Button>
-                
+
                 <p className="text-[10px] text-center text-muted-foreground">
                   Our admissions office will reach out to you within 24-48 hours.
                 </p>

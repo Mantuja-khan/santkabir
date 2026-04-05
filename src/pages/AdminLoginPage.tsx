@@ -27,37 +27,37 @@ const AdminLoginPage = () => {
     setLoading(true);
 
     if (loginMethod === "phone") {
-        if (phone === "9813177106" && password === "santkabirschool@789") {
-            toast({ 
-                title: "Phone Login Sim", 
-                description: "Logging you in with the primary admin account.",
-                variant: "default"
-            });
-            try {
-                const { data } = await api.post('/auth/login', { email: "santkabirschool@gmail.com", password: "santkabirschool@789" });
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('user', JSON.stringify(data.user));
-                navigate("/admin/dashboard");
-                return;
-            } catch (err) {
-                // fall through
-            }
-        } else {
-            toast({ title: "Login failed", description: "Invalid phone or password", variant: "destructive" });
-            setLoading(false);
-            return;
+      if (phone === "9813177106" && password === "santkabirschool@789") {
+        toast({
+          title: "Phone Login Sim",
+          description: "Logging you in with the primary admin account.",
+          variant: "default"
+        });
+        try {
+          const { data } = await api.post('/auth/login', { email: "santkabirschool@gmail.com", password: "santkabirschool@789" });
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          navigate("/admin/dashboard");
+          return;
+        } catch (err) {
+          // fall through
         }
+      } else {
+        toast({ title: "Login failed", description: "Invalid phone or password", variant: "destructive" });
+        setLoading(false);
+        return;
+      }
     }
 
     try {
-        const { data } = await api.post('/auth/login', { email, password });
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        toast({ title: "Login successful" });
-        navigate("/admin/dashboard");
+      const { data } = await api.post('/auth/login', { email, password });
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      toast({ title: "Login successful" });
+      navigate("/admin/dashboard");
     } catch (err: any) {
-        const msg = err.response?.data?.message || "Invalid credentials. Please make sure the admin is seeded.";
-        toast({ title: "Login Error", description: msg, variant: "destructive" });
+      const msg = err.response?.data?.message || "Invalid credentials. Please make sure the admin is seeded.";
+      toast({ title: "Login Error", description: msg, variant: "destructive" });
     }
     setLoading(false);
   };
@@ -71,35 +71,35 @@ const AdminLoginPage = () => {
               <Lock className="w-8 h-8 text-primary" />
             </div>
             <h1 className="font-display text-2xl text-foreground">Admin Login</h1>
-            <p className="text-muted-foreground text-sm mt-1">Sant Kabir Public Sr. Sec. School</p>
+            <p className="text-muted-foreground text-sm mt-1">St.Kabir Public Sr. Sec. School</p>
           </div>
 
           <div className="flex rounded-lg bg-orange-light p-1">
-            <button 
-                onClick={() => setLoginMethod("email")}
-                className={`flex-1 py-2 text-sm font-bold rounded-md transition-all ${loginMethod === "email" ? "bg-white text-primary shadow-sm" : "text-muted-foreground hover:text-primary"}`}
+            <button
+              onClick={() => setLoginMethod("email")}
+              className={`flex-1 py-2 text-sm font-bold rounded-md transition-all ${loginMethod === "email" ? "bg-white text-primary shadow-sm" : "text-muted-foreground hover:text-primary"}`}
             >
-                Email
+              Email
             </button>
-            <button 
-                onClick={() => setLoginMethod("phone")}
-                className={`flex-1 py-2 text-sm font-bold rounded-md transition-all ${loginMethod === "phone" ? "bg-white text-primary shadow-sm" : "text-muted-foreground hover:text-primary"}`}
+            <button
+              onClick={() => setLoginMethod("phone")}
+              className={`flex-1 py-2 text-sm font-bold rounded-md transition-all ${loginMethod === "phone" ? "bg-white text-primary shadow-sm" : "text-muted-foreground hover:text-primary"}`}
             >
-                Phone
+              Phone
             </button>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {loginMethod === "email" ? (
-                <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" placeholder="santkabirschool@gmail.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" type="email" placeholder="santkabirschool@gmail.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              </div>
             ) : (
-                <div className="space-y-2">
-                    <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" type="tel" placeholder="9813177106" value={phone} onChange={(e) => setPhone(e.target.value)} required />
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone Number</Label>
+                <Input id="phone" type="tel" placeholder="9813177106" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+              </div>
             )}
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>

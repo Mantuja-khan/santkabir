@@ -49,7 +49,7 @@ const HomePage = () => (
     <section className="relative bg-cream overflow-hidden">
       <div className="container mx-auto px-4 py-12 md:py-20 flex flex-col md:flex-row items-center gap-8">
         <div className="flex-1 text-center md:text-left space-y-6 z-10">
-          <p className="text-primary font-bold uppercase tracking-wider text-sm">Welcome to Sant Kabir Public Sr. Sec. School</p>
+          <p className="text-primary font-bold uppercase tracking-wider text-sm">Welcome to St.Kabir Public Sr. Sec. School</p>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground leading-tight">
             We Prepare Your<br />
             <span className="text-primary italic">Child For Life</span>
@@ -68,7 +68,7 @@ const HomePage = () => (
         </div>
         <div className="flex-1 relative w-full overflow-hidden">
           <div className="blob-shape overflow-hidden shadow-2xl relative z-10 w-full aspect-[4/3] md:aspect-auto">
-             <ImageCarousel images={heroImages} />
+            <ImageCarousel images={heroImages} />
           </div>
           <div className="absolute -top-4 -right-4 w-20 h-20 bg-accent rounded-full opacity-60 animate-float z-0" />
           <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-primary rounded-full opacity-40 animate-bounce-slow z-0" />
@@ -103,7 +103,7 @@ const HomePage = () => (
           <p className="section-subtitle">About Us</p>
           <h2 className="section-title !text-left">Learn To Play, Converse With Confidence</h2>
           <p className="text-muted-foreground leading-relaxed">
-            Sant Kabir Public Sr. Sec. School, located at Nandram Pur Bus Stand, Dharuhera, Rewari, has been a beacon of quality education. We provide a balanced curriculum that develops intellectual, physical, and creative potential of every child from Nursery to Class 12th.
+            St.Kabir Public Sr. Sec. School, located at Nandram Pur Bus Stand, Dharuhera, Rewari, has been a beacon of quality education. We provide a balanced curriculum that develops intellectual, physical, and creative potential of every child from Nursery to Class 12th.
           </p>
           <div className="flex gap-6">
             <div className="flex items-start gap-2">
@@ -169,7 +169,7 @@ const HomePage = () => (
       <div className="container mx-auto px-4 text-center text-primary-foreground relative z-10">
         <h2 className="font-display text-4xl md:text-6xl mb-6 drop-shadow-2xl">Admissions Open 2026-27</h2>
         <p className="text-xl md:text-2xl mb-4 opacity-90 max-w-2xl mx-auto drop-shadow-lg">
-          Give your child the best start in life! Sant Kabir Public Sr. Sec. School is now accepting admissions for Nursery to Class 12th for the academic session 2026-27.
+          Give your child the best start in life! St.Kabir Public Sr. Sec. School is now accepting admissions for Nursery to Class 12th for the academic session 2026-27.
         </p>
         <p className="text-lg mb-10 opacity-75 font-semibold">Limited seats available. Enroll your child today!</p>
         <div className="flex flex-wrap justify-center gap-6">

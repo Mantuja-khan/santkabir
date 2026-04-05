@@ -39,7 +39,7 @@ const GalleryPage = () => {
         <h1 className="font-display text-4xl md:text-6xl text-white mb-4">School Gallery</h1>
         <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
         <p className="text-slate-400 max-w-xl mx-auto px-4 uppercase tracking-widest text-sm font-bold">
-          Capturing the spirit of Sant Kabir Public School
+          Capturing the spirit of St.Kabir Public School
         </p>
       </section>
 
@@ -58,14 +58,14 @@ const GalleryPage = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {items.map((item) => (
-              <div 
-                key={item._id} 
+              <div
+                key={item._id}
                 className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer aspect-square"
                 onClick={() => setSelectedImg(`${BACKEND_URL}${item.image_url}`)}
               >
-                <img 
-                  src={`${BACKEND_URL}${item.image_url}`} 
-                  alt={item.title} 
+                <img
+                  src={`${BACKEND_URL}${item.image_url}`}
+                  alt={item.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
                 />
@@ -81,20 +81,20 @@ const GalleryPage = () => {
 
       {/* Lightbox / Modal */}
       {selectedImg && (
-        <div 
+        <div
           className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4"
           onClick={() => setSelectedImg(null)}
         >
-          <button 
+          <button
             className="absolute top-6 right-6 text-white bg-primary p-3 rounded-full hover:scale-110 transition-transform active:scale-95"
             onClick={() => setSelectedImg(null)}
           >
             <X className="w-6 h-6" />
           </button>
-          
-          <img 
-            src={selectedImg} 
-            alt="Expanded view" 
+
+          <img
+            src={selectedImg}
+            alt="Expanded view"
             className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-300"
             onClick={(e) => e.stopPropagation()}
           />
