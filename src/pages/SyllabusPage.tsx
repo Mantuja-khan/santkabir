@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "@/api/client";
-import { BookOpen, GraduationCap, X, CheckCircle, Loader2, FileText, ChevronRight, Bookmark } from "lucide-react";
+import { BookOpen, X, Loader2, FileText, CheckCircle, GraduationCap } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
 
@@ -27,7 +27,7 @@ const SyllabusPage = () => {
           setItems([]);
         }
       } catch (err) {
-        toast.error("Failed to load academic syllabus");
+        toast.error("Failed to load syllabus");
         setItems([]);
       } finally {
         setLoading(false);
@@ -44,92 +44,72 @@ const SyllabusPage = () => {
   }, {});
 
   return (
-    <div className="min-h-screen bg-[#f8fafc]">
-      {/* Dynamic Header */}
-      <section className="relative pt-24 pb-32 overflow-hidden bg-slate-900">
-        <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-0 -left-20 w-96 h-96 bg-primary rounded-full blur-[100px]" />
-            <div className="absolute bottom-0 -right-20 w-96 h-96 bg-secondary rounded-full blur-[100px]" />
+    <div className="min-h-screen bg-slate-50/50 pb-20">
+      {/* Page Header with Background Image (Top CTA) */}
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://i.pinimg.com/1200x/63/54/0d/63540d3056c21bdb9c62ef085f0e198d.jpg"
+            alt="School"
+            className="w-full h-full object-cover brightness-50"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60"></div>
         </div>
-        <div className="container mx-auto px-4 relative z-10 text-center">
-            <span className="inline-block px-4 py-1.5 mb-6 text-[10px] font-black uppercase tracking-[0.3em] bg-white/10 text-white/80 rounded-full backdrop-blur-md">
-                Academic Session 2026-27
-            </span>
-            <h1 className="font-display text-5xl md:text-8xl text-white mb-6 uppercase tracking-tight">
-                Curriculum <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">&</span> Syllabus
-            </h1>
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg md:text-xl font-light">
-                Discover our comprehensive educational journey designed to inspire future leaders Class by Class.
-            </p>
+
+        <div className="relative z-10 container mx-auto px-4 
+                  flex flex-col items-center justify-center 
+                  text-center text-white 
+                  animate-in fade-in slide-in-from-top-10 duration-1000">
+
+          <h1 className="text-4xl md:text-7xl font-display mb-6 uppercase tracking-tighter drop-shadow-2xl">
+            Academic Syllabus
+          </h1>
+
+          <p className="max-w-xl text-lg md:text-2xl opacity-90 font-light leading-relaxed drop-shadow-lg">
+            Class-wise curriculum for session 2026-27 at St.Kabir Public School
+          </p>
+
         </div>
       </section>
 
-      <div className="container mx-auto px-4 -mt-16 relative z-30 pb-32">
+      <div className="container mx-auto px-4 py-16 -mt-12 relative z-20">
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-24 gap-6 bg-white rounded-[3rem] shadow-2xl border border-slate-100">
-            <div className="relative">
-                <Loader2 className="w-16 h-16 text-primary animate-spin" />
-                <BookOpen className="w-6 h-6 text-primary absolute inset-0 m-auto" />
-            </div>
-            <p className="text-slate-800 font-display text-xl animate-pulse uppercase tracking-widest">Organizing Academic Modules...</p>
+          <div className="flex flex-col items-center justify-center py-24 bg-white rounded-[3rem] shadow-xl border border-slate-100 reveal-on-scroll">
+            <Loader2 className="w-10 h-10 text-primary animate-spin" />
+            <p className="text-slate-500 mt-6 font-bold uppercase tracking-widest text-sm text-center">Synchronizing Academic Data...</p>
           </div>
         ) : items.length === 0 ? (
-          <div className="text-center py-32 bg-white rounded-[3rem] border border-dashed border-slate-200 shadow-xl max-w-3xl mx-auto">
-            <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-8 text-slate-300">
-                <FileText className="w-10 h-10" />
-            </div>
-            <h2 className="text-3xl font-display text-slate-900 mb-4 uppercase tracking-tighter">Updating Curriculum</h2>
-            <p className="text-slate-500 max-w-md mx-auto mb-10">We are currently refreshing our course modules for the upcoming session. Please stay tuned.</p>
-            <div className="inline-flex gap-2 p-1 bg-slate-100 rounded-full text-[10px] font-bold text-slate-400 px-4 uppercase tracking-widest">Coming Soon</div>
+          <div className="text-center py-24 bg-white rounded-[3rem] border border-dashed border-slate-200 shadow-xl max-w-3xl mx-auto reveal-on-scroll">
+            <FileText className="w-16 h-16 text-slate-200 mx-auto mb-6" />
+            <h2 className="text-2xl font-display text-slate-900 mb-4 uppercase tracking-tighter">Updating Curriculum</h2>
+            <p className="text-slate-500 max-w-md mx-auto italic font-medium">We are currently refreshing our academic modules for the upcoming session.</p>
           </div>
         ) : (
-          <div className="space-y-32">
+          <div className="space-y-24 reveal-on-scroll">
             {Object.keys(groupedItems).map((groupName) => (
-              <div key={groupName} className="relative">
-                <div className="sticky top-24 z-40 mb-12">
-                     <div className="bg-white/80 backdrop-blur-xl w-fit px-10 py-5 rounded-full shadow-2xl border border-white flex items-center gap-6 group hover:border-primary/20 transition-all">
-                        <div className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center text-white rotate-3 group-hover:rotate-0 transition-transform shadow-xl">
-                            <Bookmark className="w-6 h-6" />
-                        </div>
-                        <h2 className="font-display text-3xl md:text-4xl text-slate-900 uppercase tracking-tighter">{groupName}</h2>
-                     </div>
+              <div key={groupName}>
+                <div className="flex items-center gap-6 mb-10 group">
+                  <div className="w-14 h-14 bg-white rounded-3xl shadow-lg border border-primary/10 flex items-center justify-center text-primary rotate-3 group-hover:rotate-0 transition-all">
+                    <GraduationCap className="w-7 h-7" />
+                  </div>
+                  <h2 className="text-2xl font-display text-slate-900 uppercase tracking-tighter border-b-4 border-primary pb-1 group-hover:border-primary/40 transition-colors">
+                    {groupName}
+                  </h2>
                 </div>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 pl-4 md:pl-20 border-l border-slate-200 ml-6 md:ml-10">
-                  {groupedItems[groupName].map((item: SyllabusRow, idx: number) => (
-                    <div 
-                        key={item._id}
-                        className="group relative"
-                        style={{ animationDelay: `${idx * 150}ms` }}
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                  {groupedItems[groupName].map((item: SyllabusRow) => (
+                    <button
+                      key={item._id}
+                      className="bg-white rounded-[2rem] p-8 md:p-10 shadow-sm border border-slate-100 hover:shadow-2xl hover:border-primary/20 hover:-translate-y-2 transition-all duration-500 text-center flex flex-col items-center justify-center gap-4 group active:scale-95"
+                      onClick={() => setSelectedClass(item)}
                     >
-                        <div className="absolute -left-[3.1rem] md:-left-[6.1rem] top-10 w-6 h-6 md:w-8 md:h-8 bg-white border-4 border-slate-900 rounded-full z-20 shadow-lg group-hover:bg-primary group-hover:border-primary transition-all duration-500" />
-                        
-                        <button 
-                            className="w-full bg-white rounded-[2.5rem] p-10 md:p-12 shadow-md border border-slate-100 hover:shadow-2xl hover:border-primary/30 transition-all duration-500 text-left flex flex-col group relative overflow-hidden"
-                            onClick={() => setSelectedClass(item)}
-                        >
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-full -mr-10 -mt-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                            
-                            <div className="flex items-center justify-between mb-10 relative z-10 w-full">
-                                <span className="bg-slate-50 text-slate-400 px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest group-hover:bg-primary/10 group-hover:text-primary transition-colors italic">Class Profile</span>
-                                <ChevronRight className="w-6 h-6 text-slate-300 group-hover:translate-x-2 group-hover:text-primary transition-all" />
-                            </div>
-                            
-                            <h3 className="font-display text-3xl md:text-5xl text-slate-900 mb-6 group-hover:text-primary transition-colors leading-none tracking-tighter uppercase">{item.class_name}</h3>
-                            
-                            <div className="flex items-center gap-3 text-slate-400 group-hover:text-slate-600 transition-colors">
-                                <BookOpen className="w-4 h-4" />
-                                <span className="text-xs font-medium uppercase tracking-widest">{item.subjects.length} Subjects Included</span>
-                            </div>
-                            
-                            <div className="mt-10 pt-8 border-t border-slate-100 flex items-center justify-between w-full">
-                                <div className="flex -space-x-3">
-                                    {[1,2,3].map(i => <div key={i} className="w-8 h-8 bg-slate-50 border-2 border-white rounded-full flex items-center justify-center text-[10px] font-bold text-slate-300">S{i}</div>)}
-                                </div>
-                                <span className="text-[10px] font-black uppercase text-primary tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Explore Scope</span>
-                            </div>
-                        </button>
-                    </div>
+                      <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-300 group-hover:bg-primary/10 group-hover:text-primary transition-all duration-500">
+                        <BookOpen className="w-6 h-6" />
+                      </div>
+                      <h3 className="font-display text-xl text-slate-900 group-hover:text-primary transition-colors leading-tight tracking-tight uppercase">{item.class_name}</h3>
+                      <div className="text-[10px] uppercase font-black text-primary/40 opacity-0 group-hover:opacity-100 tracking-[0.2em] transition-opacity">Details</div>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -138,67 +118,49 @@ const SyllabusPage = () => {
         )}
       </div>
 
-      {/* Modern Dialog for Syllabus Details */}
+      {/* Pop-up Dialog Details is now very simple but clean */}
       {selectedClass && (
         <Dialog open={!!selectedClass} onOpenChange={(open) => !open && setSelectedClass(null)}>
-            <DialogContent className="max-w-[95vw] sm:max-w-2xl rounded-[3rem] border-none shadow-3xl bg-white p-0 overflow-hidden max-h-[90vh] overflow-y-auto animate-in zoom-in-95 slide-in-from-bottom-20 duration-500">
-                <div className="bg-slate-900 p-10 md:p-14 text-white relative">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary rounded-full blur-[100px] opacity-20 -mr-32 -mt-32" />
-                    <DialogHeader className="text-left relative z-10">
-                        <div className="flex items-center gap-3 opacity-50 text-[10px] font-black uppercase tracking-[0.4em] mb-4">
-                            <GraduationCap className="w-4 h-4" /> Academic Overview
-                        </div>
-                        <DialogTitle className="font-display text-4xl md:text-7xl text-white outline-none tracking-tighter uppercase leading-none">
-                            {selectedClass.class_name}
-                        </DialogTitle>
-                    </DialogHeader>
-                    <button 
-                        onClick={() => setSelectedClass(null)}
-                        className="absolute top-8 right-8 bg-white/10 hover:bg-primary p-4 rounded-3xl text-white transition-all shadow-lg active:scale-90"
-                    >
-                        <X className="w-6 h-6" />
-                    </button>
-                </div>
-                
-                <div className="p-10 md:p-14 space-y-12">
-                    <div className="flex items-center justify-between">
-                        <h3 className="font-display text-2xl text-slate-900 uppercase tracking-tight flex items-center gap-3">
-                            <span className="w-1.5 h-8 bg-primary rounded-full" />
-                            Curriculum Subjects
-                        </h3>
-                        <span className="px-5 py-2 bg-slate-50 text-slate-500 rounded-full text-[10px] font-bold uppercase tracking-widest outline outline-1 outline-slate-200">Session 26-27</span>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                       {selectedClass.subjects.map((sub, idx) => (
-                         <div 
-                            key={idx} 
-                            className="bg-slate-50 p-6 md:p-8 rounded-[2rem] border border-slate-100 flex items-center gap-5 hover:bg-white hover:shadow-2xl hover:border-primary/10 transition-all group"
-                         >
-                           <div className="w-12 h-12 bg-white rounded-2xl shadow-md flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 rotate-3 group-hover:rotate-0 flex-shrink-0">
-                             <CheckCircle className="w-6 h-6" />
-                           </div>
-                           <span className="font-bold text-slate-700 text-lg md:text-xl leading-tight">{sub}</span>
-                         </div>
-                       ))}
-                    </div>
-                    
-                    <div className="pt-10 flex flex-col md:flex-row gap-4">
-                        <button 
-                            onClick={() => setSelectedClass(null)}
-                            className="flex-1 bg-slate-900 text-white py-6 rounded-full font-black uppercase tracking-widest text-[10px] hover:bg-primary transition-all active:scale-95 shadow-2xl"
-                        >
-                            Close Syllabus
-                        </button>
-                        <a 
-                            href="tel:9813177106"
-                            className="bg-slate-50 text-slate-900 border border-slate-200 px-10 py-6 rounded-full font-bold uppercase tracking-widest text-[10px] text-center hover:bg-white transition-all"
-                        >
-                            Talk to Counselor
-                        </a>
-                    </div>
-                </div>
-            </DialogContent>
+          <DialogContent className="max-w-md rounded-[2.5rem] border-none shadow-3xl bg-white p-0 overflow-hidden outline-none animate-in fade-in zoom-in-95 duration-500">
+            <div className="bg-primary/5 p-8 border-b border-primary/10 flex justify-between items-center text-left">
+              <div>
+                <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em] leading-none mb-2">Academic Profile</p>
+                <DialogTitle className="text-3xl font-display text-slate-900 outline-none leading-none uppercase">
+                  {selectedClass.class_name}
+                </DialogTitle>
+              </div>
+              <button
+                onClick={() => setSelectedClass(null)}
+                className="bg-primary/10 hover:bg-primary/20 p-3 rounded-2xl text-primary transition-all"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-10 text-left">
+              <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">
+                Included Subjects
+              </h3>
+
+              <div className="space-y-3">
+                {selectedClass.subjects.map((sub, idx) => (
+                  <div key={idx} className="flex items-center gap-4 p-4 bg-slate-50 border border-slate-100 rounded-2xl group hover:bg-white transition-all">
+                    <CheckCircle className="w-4 h-4 text-primary" />
+                    <span className="font-bold text-slate-700 text-base">{sub}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="px-10 pb-10">
+              <button
+                onClick={() => setSelectedClass(null)}
+                className="w-full bg-primary text-white py-5 rounded-full font-bold text-sm uppercase tracking-widest hover:opacity-90 active:scale-95 transition-all shadow-lg"
+              >
+                Close Details
+              </button>
+            </div>
+          </DialogContent>
         </Dialog>
       )}
     </div>

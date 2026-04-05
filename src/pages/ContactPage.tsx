@@ -21,9 +21,9 @@ const ContactPage = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
         </div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="font-display text-4xl md:text-6xl text-white mb-4 drop-shadow-xl">Contact Us</h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto drop-shadow-lg">Get in touch with St.Kabir Public Sr. Sec. School</p>
+        <div className="container mx-auto px-4 text-center relative z-10 animate-in fade-in slide-in-from-top-10 duration-1000">
+          <h1 className="font-display text-5xl md:text-7xl text-white mb-6 drop-shadow-xl">Contact Us</h1>
+          <p className="text-xl text-white/90 max-w-2xl mx-auto drop-shadow-xl">Get in touch with St.Kabir Public Sr. Sec. School</p>
         </div>
       </section>
 

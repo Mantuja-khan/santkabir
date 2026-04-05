@@ -83,8 +83,8 @@ const ApplyPage = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
         </div>
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="font-display text-4xl md:text-6xl text-white mb-6 drop-shadow-xl">Online Admission</h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto drop-shadow-lg">Begin your child's journey towards excellence. Fill out the application form below to start the admission process.</p>
+          <h1 className="font-display text-4xl md:text-7xl text-white mb-6 animate-in fade-in slide-in-from-top-10 duration-1000">Online Admission</h1>
+          <p className="text-xl text-white/90 max-w-2xl mx-auto drop-shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">Start your child's journey with St.Kabir Public School today. Fill out the application form below to start the admission process.</p>
         </div>
       </section>
 

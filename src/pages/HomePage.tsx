@@ -47,7 +47,7 @@ const HomePage = () => (
 
     {/* Hero */}
     <section className="relative bg-cream overflow-hidden">
-      <div className="container mx-auto px-4 py-12 md:py-20 flex flex-col md:flex-row items-center gap-8">
+      <div className="container mx-auto px-4 py-12 md:py-12 flex flex-col md:flex-row items-center gap-8">
         <div className="flex-1 text-center md:text-left space-y-6 z-10">
           <p className="text-primary font-bold uppercase tracking-wider text-sm">Welcome to St.Kabir Public Sr. Sec. School</p>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground leading-tight">
@@ -126,7 +126,7 @@ const HomePage = () => (
     </section>
 
     {/* Stats */}
-    <section className="py-12 bg-secondary">
+    <section className="py-12 bg-secondary reveal-on-scroll">
       <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6">
         {stats.map((s, i) => (
           <div key={i} className="text-center text-secondary-foreground">
@@ -157,18 +157,18 @@ const HomePage = () => (
     </section>
 
     {/* Admission CTA */}
-    <section className="relative py-20 overflow-hidden">
+    <section className="relative py-32 md:py-40 overflow-hidden reveal-on-scroll">
       <div className="absolute inset-0 z-0">
         <img
           src="https://i.pinimg.com/1200x/63/54/0d/63540d3056c21bdb9c62ef085f0e198d.jpg"
           alt="Graduation"
-          className="w-full h-full object-cover brightness-[0.3]"
+          className="w-full h-full object-cover brightness-[0.25]"
         />
         <div className="absolute inset-0 bg-primary/40 backdrop-blur-[2px]"></div>
       </div>
       <div className="container mx-auto px-4 text-center text-primary-foreground relative z-10">
-        <h2 className="font-display text-4xl md:text-6xl mb-6 drop-shadow-2xl">Admissions Open 2026-27</h2>
-        <p className="text-xl md:text-2xl mb-4 opacity-90 max-w-2xl mx-auto drop-shadow-lg">
+        <h2 className="font-display text-4xl md:text-6xl mb-8 drop-shadow-2xl">Admissions Open 2026-27</h2>
+        <p className="text-xl md:text-2xl mb-12 opacity-90 max-w-3xl mx-auto drop-shadow-lg leading-relaxed">
           Give your child the best start in life! St.Kabir Public Sr. Sec. School is now accepting admissions for Nursery to Class 12th for the academic session 2026-27.
         </p>
         <p className="text-lg mb-10 opacity-75 font-semibold">Limited seats available. Enroll your child today!</p>

@@ -37,7 +37,7 @@ const Navbar = () => {
           <Link to="/" className="flex items-center gap-3">
             <img src={logo} alt="School Logo" className="w-12 h-12 object-contain" />
             <div>
-              <h1 className="font-display text-lg md:text-xl leading-tight text-primary">Sant Kabir Public</h1>
+              <h1 className="font-display text-lg md:text-xl leading-tight text-primary">St.Kabir Public</h1>
               <p className="text-xs text-muted-foreground -mt-1">Sr. Sec. School</p>
             </div>
           </Link>
@@ -50,8 +50,8 @@ const Navbar = () => {
                   <Link
                     to={item.path}
                     className={`px-4 py-2 rounded-lg font-display font-semibold text-sm transition-colors ${location.pathname === item.path
-                        ? "bg-primary text-primary-foreground"
-                        : "text-foreground hover:bg-orange-light"
+                      ? "bg-primary text-primary-foreground"
+                      : "text-foreground hover:bg-orange-light"
                       }`}
                   >
                     {item.label}
@@ -79,19 +79,19 @@ const Navbar = () => {
                 to={item.path}
                 onClick={() => setOpen(false)}
                 className={`block py-3 px-4 rounded-lg font-display font-semibold text-sm ${location.pathname === item.path
-                    ? "bg-primary text-primary-foreground"
-                    : "text-foreground"
+                  ? "bg-primary text-primary-foreground"
+                  : "text-foreground"
                   }`}
               >
                 {item.label}
               </Link>
             ))}
             <Link
-                to="/apply"
-                onClick={() => setOpen(false)}
-                className="block mt-4 py-3 px-4 bg-primary text-white rounded-lg font-bold text-center text-sm shadow-lg active:scale-95 transition-all"
+              to="/apply"
+              onClick={() => setOpen(false)}
+              className="block mt-4 py-3 px-4 bg-primary text-white rounded-lg font-bold text-center text-sm shadow-lg active:scale-95 transition-all"
             >
-                Apply Now
+              Apply Now
             </Link>
           </div>
         )}
