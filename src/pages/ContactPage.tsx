@@ -40,7 +40,7 @@ const ContactPage = () => {
               {[
                 { icon: Phone, title: "Phone", lines: ["9813177106", "9813177141"] },
                 { icon: Mail, title: "Email", lines: ["stkabirpublicschool.dhr@gmail.com"] },
-                { icon: MapPin, title: "Address", lines: ["Nandram Pur Bus Stand,", "Dharuhera, Rewari, Haryana"] },
+                { icon: MapPin, title: "Address", lines: ["Nandrampur Bass road,", "Alawalpur, Haryana"] },
                 { icon: Clock, title: "School Hours", lines: ["Mon - Sat: 8:00 AM - 2:30 PM", "Office: 8:00 AM - 4:00 PM"] },
               ].map((c, i) => (
                 <div key={i} className="flex items-start gap-4">

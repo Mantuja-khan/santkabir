@@ -51,7 +51,7 @@ const Footer = () => (
         <div className="space-y-3 text-sm">
           <p className="flex items-start gap-2"><Phone className="w-4 h-4 mt-0.5 text-primary" /> +91-9813177106, 9813177141</p>
           <p className="flex items-start gap-2"><Mail className="w-4 h-4 mt-0.5 text-primary" /> stkabirpublicschool.dhr@gmail.com</p>
-          <p className="flex items-start gap-2"><MapPin className="w-4 h-4 mt-0.5 text-primary" /> Nandram Pur Bus Stand, Dharuhera, Rewari</p>
+          <p className="flex items-start gap-2"><MapPin className="w-4 h-4 mt-0.5 text-primary" /> Nandrampur Bass road, Alawalpur</p>
 
           <div className="pt-6 border-t border-cream/10 mt-6">
             <p className="text-accent font-display text-sm mb-3">For direct message on whatsapp , scan here</p>

@@ -35,7 +35,7 @@ const AboutPage = () => (
           <p className="section-subtitle !text-left">Who We Are</p>
           <h2 className="font-display text-3xl text-foreground">A Legacy of Excellence in Education</h2>
           <p className="text-muted-foreground leading-relaxed">
-            Sant Kabir Public Sr. Sec. School, situated at Nandram Pur Bus Stand, Dharuhera, Rewari, is a premier educational institution providing quality education from Nursery to Class 12th. Our school is committed to nurturing the intellectual, physical, emotional, and social development of every student.
+            Sant Kabir Public Sr. Sec. School, situated at Nandrampur Bass road, Alawalpur, is a premier educational institution providing quality education from Nursery to Class 12th. Our school is committed to nurturing the intellectual, physical, emotional, and social development of every student.
           </p>
           <p className="text-muted-foreground leading-relaxed">
             With a team of over 100 dedicated and experienced teachers, state-of-the-art infrastructure, and a student-centered approach, we ensure that each child receives personalized attention and the best learning experience.

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
-import { GraduationCap, Users, BookOpen, Clock, Award, Star } from "lucide-react";
-import heroImg from "@/assets/hero-children.jpg";
+import { GraduationCap, Users, BookOpen, Clock, Award, Star, MapPin } from "lucide-react";
+import hero1 from "@/assets/1stimg.jpeg";
+import hero2 from "@/assets/1st.jpeg";
+import hero3 from "@/assets/2nd.jpeg";
 import aboutImg1 from "@/assets/1stimg.jpeg";
 import aboutImg2 from "@/assets/2ndimg.jpeg";
 import aboutImg3 from "@/assets/3rdimg.jpeg";
@@ -21,6 +23,7 @@ const features = [
   { icon: Clock, title: "Full Day Programs", desc: "Comprehensive programs including co-curricular activities." },
 ];
 
+const heroImages = [hero1, hero2, hero3];
 const aboutImages = [aboutImg1, aboutImg2, aboutImg3, aboutImg4];
 
 const programs = [
@@ -52,7 +55,7 @@ const HomePage = () => (
             <span className="text-primary italic">Child For Life</span>
           </h2>
           <p className="text-muted-foreground max-w-lg mx-auto md:mx-0">
-            Empowering students from Nursery to Class 12th with holistic education, state-of-the-art facilities, and a nurturing environment at Dharuhera, Rewari.
+            Empowering students from Nursery to Class 12th with holistic education, state-of-the-art facilities, and a nurturing environment at Nandrampur Bass road, Alawalpur.
           </p>
           <div className="flex flex-wrap gap-4 justify-center md:justify-start">
             <Link to="/apply" className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-bold text-lg hover:opacity-90 transition-opacity shadow-lg">
@@ -63,12 +66,12 @@ const HomePage = () => (
             </Link>
           </div>
         </div>
-        <div className="flex-1 relative">
-          <div className="blob-shape overflow-hidden shadow-2xl">
-            <img src={heroImg} alt="Happy students at Sant Kabir Public School" width={1280} height={720} className="w-full h-auto object-cover" />
+        <div className="flex-1 relative w-full overflow-hidden">
+          <div className="blob-shape overflow-hidden shadow-2xl relative z-10 w-full aspect-[4/3] md:aspect-auto">
+             <ImageCarousel images={heroImages} />
           </div>
-          <div className="absolute -top-4 -right-4 w-20 h-20 bg-accent rounded-full opacity-60 animate-float" />
-          <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-primary rounded-full opacity-40 animate-bounce-slow" />
+          <div className="absolute -top-4 -right-4 w-20 h-20 bg-accent rounded-full opacity-60 animate-float z-0" />
+          <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-primary rounded-full opacity-40 animate-bounce-slow z-0" />
         </div>
       </div>
     </section>
