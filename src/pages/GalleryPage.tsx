@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import api from "@/api/client";
 import { X, Maximize2, Loader2, ImageOff } from "lucide-react";
 import { toast } from "sonner";
@@ -16,6 +16,15 @@ const GalleryPage = () => {
   const [items, setItems] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
+
+  const groupedItems = useMemo(() => {
+    const groups: Record<string, GalleryItem[]> = {};
+    items.forEach((item) => {
+      if (!groups[item.title]) groups[item.title] = [];
+      groups[item.title].push(item);
+    });
+    return groups;
+  }, [items]);
 
   useEffect(() => {
     const fetchGallery = async () => {
@@ -56,22 +65,40 @@ const GalleryPage = () => {
             <p className="text-slate-500">Our gallery is currently being updated. Please check back later.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {items.map((item) => (
-              <div
-                key={item._id}
-                className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer aspect-square"
-                onClick={() => setSelectedImg(`${BACKEND_URL}${item.image_url}`)}
-              >
-                <img
-                  src={`${BACKEND_URL}${item.image_url}`}
-                  alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-6 text-center">
-                  <Maximize2 className="w-8 h-8 text-white mb-3" />
-                  <p className="text-white font-display text-lg drop-shadow-md">{item.title}</p>
+          <div className="space-y-24">
+            {Object.entries(groupedItems).map(([title, images]) => (
+              <div key={title} className="reveal-on-scroll show px-2">
+                <div className="flex items-center gap-4 mb-8">
+                  <h3 className="font-display text-2xl md:text-4xl text-slate-900 whitespace-nowrap">
+                    {title}
+                  </h3>
+                  <div className="h-px flex-grow bg-slate-200 rounded-full"></div>
+                  <div className="hidden sm:flex items-center gap-2 text-slate-400 font-bold uppercase tracking-[0.2em] text-[10px]">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+                    {images.length} {images.length === 1 ? "Image" : "Images"}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 px-1">
+                  {images.map((item) => (
+                    <div
+                      key={item._id}
+                      className="group relative bg-white rounded-2xl md:rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-700 cursor-pointer aspect-square border border-slate-100"
+                      onClick={() => setSelectedImg(`${BACKEND_URL}${item.image_url}`)}
+                    >
+                      <img
+                        src={`${BACKEND_URL}${item.image_url}`}
+                        alt={item.title}
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                        <div className="bg-white/20 p-4 rounded-full backdrop-blur-md scale-75 group-hover:scale-100 transition-all duration-500 border border-white/30">
+                          <Maximize2 className="w-6 h-6 text-white" />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             ))}

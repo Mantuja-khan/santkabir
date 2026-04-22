@@ -16,7 +16,7 @@ const Gallery = require('./models/Gallery');
 const Career = require('./models/Career'); // New Career Model
 
 const app = express();
-app.use(cors({ origin: 'https://stkabirpublicschool.in' }));
+app.use(cors({ origin: ['https://stkabirpublicschool.in', 'http://localhost:8080', 'http://localhost:3000'] }));
 app.use(express.json());
 
 const uploadsDir = path.join(__dirname, 'uploads');
@@ -152,6 +152,20 @@ app.get('/api/syllabus', async (req, res) => {
 
 app.post('/api/syllabus', auth, async (req, res) => {
   try { res.status(201).json(await new Syllabus(req.body).save()); } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+app.put('/api/syllabus/:id', auth, async (req, res) => {
+  try {
+    const updated = await Syllabus.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updated);
+  } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+app.delete('/api/syllabus/:id', auth, async (req, res) => {
+  try {
+    await Syllabus.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Deleted' });
+  } catch (err) { res.status(500).json({ message: err.message }); }
 });
 
 // --- Gallery ---

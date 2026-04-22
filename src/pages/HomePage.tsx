@@ -10,7 +10,7 @@ import aboutImg4 from "@/assets/4th.jpeg";
 import ImageCarousel from "@/components/ImageCarousel";
 
 const stats = [
-  { num: "15+", label: "Years of Experience" },
+  { num: "35+", label: "Years of Experience" },
   { num: "500+", label: "Students Enrolled" },
   { num: "50+", label: "Expert Teachers" },
   { num: "500+", label: "Happy Parents" },
@@ -103,7 +103,7 @@ const HomePage = () => (
           <p className="section-subtitle">About Us</p>
           <h2 className="section-title !text-left">Learn To Play, Converse With Confidence</h2>
           <p className="text-muted-foreground leading-relaxed">
-            St.Kabir Public Sr. Sec. School, located at Nandram Pur Bus Stand, Dharuhera, Rewari, has been a beacon of quality education. We provide a balanced curriculum that develops intellectual, physical, and creative potential of every child from Nursery to Class 12th.
+            St. Kabir Public Sr. Sec. School, NRP Bass Road, Alawalpur, Dharuhera, Rewari, has been a beacon of quality education. We provide a balanced curriculum that develops intellectual, physical, and creative potential of every child from Nursery to Class 12th.
           </p>
           <div className="flex gap-6">
             <div className="flex items-start gap-2">
@@ -138,7 +138,7 @@ const HomePage = () => (
     </section>
 
     {/* Programs */}
-    <section className="py-16 bg-card reveal-on-scroll">
+    {/* <section className="py-16 bg-card reveal-on-scroll">
       <div className="container mx-auto px-4">
         <p className="section-subtitle">Our Programs</p>
         <h2 className="section-title mb-10">We Meet Kids At Their Level<br />Regardless Of Their Age</h2>
@@ -154,7 +154,7 @@ const HomePage = () => (
           ))}
         </div>
       </div>
-    </section>
+    </section> */}
 
     {/* Admission CTA */}
     <section className="relative py-32 md:py-40 overflow-hidden reveal-on-scroll">

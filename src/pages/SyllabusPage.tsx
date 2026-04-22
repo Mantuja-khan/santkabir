@@ -16,17 +16,25 @@ const SyllabusPage = () => {
   const [items, setItems] = useState<SyllabusRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedClass, setSelectedClass] = useState<SyllabusRow | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchSyllabus = async () => {
       try {
         const { data } = await api.get("/syllabus");
+        console.log("Syllabus API response:", data); // Debug: check what's coming back
         if (Array.isArray(data)) {
           setItems(data.sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0)));
+        } else if (data && Array.isArray(data.data)) {
+          // Handle wrapped response: { data: [...] }
+          setItems(data.data.sort((a: SyllabusRow, b: SyllabusRow) => (a.sort_order || 0) - (b.sort_order || 0)));
         } else {
+          console.warn("Unexpected syllabus data format:", data);
           setItems([]);
         }
-      } catch (err) {
+      } catch (err: any) {
+        console.error("Syllabus fetch error:", err);
+        setError(err?.message || "Failed to load syllabus");
         toast.error("Failed to load syllabus");
         setItems([]);
       } finally {
@@ -36,7 +44,7 @@ const SyllabusPage = () => {
     fetchSyllabus();
   }, []);
 
-  const groupedItems = (items || []).reduce((acc: any, item) => {
+  const groupedItems = items.reduce((acc: Record<string, SyllabusRow[]>, item) => {
     const groupName = item.group_name || "General";
     if (!acc[groupName]) acc[groupName] = [];
     acc[groupName].push(item);
@@ -45,7 +53,7 @@ const SyllabusPage = () => {
 
   return (
     <div className="min-h-screen bg-slate-50/50 pb-20">
-      {/* Page Header with Background Image (Top CTA) */}
+      {/* Hero Header */}
       <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
@@ -53,46 +61,69 @@ const SyllabusPage = () => {
             alt="School"
             className="w-full h-full object-cover brightness-50"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60" />
         </div>
-
-        <div className="relative z-10 container mx-auto px-4 
-                  flex flex-col items-center justify-center 
-                  text-center text-white 
-                  animate-in fade-in slide-in-from-top-10 duration-1000">
-
+        <div className="relative z-10 container mx-auto px-4 flex flex-col items-center justify-center text-center text-white">
           <h1 className="text-4xl md:text-7xl font-display mb-6 uppercase tracking-tighter drop-shadow-2xl">
             Academic Syllabus
           </h1>
-
           <p className="max-w-xl text-lg md:text-2xl opacity-90 font-light leading-relaxed drop-shadow-lg">
             Class-wise curriculum for session 2026-27 at St.Kabir Public School
           </p>
-
         </div>
       </section>
 
       <div className="container mx-auto px-4 py-16 -mt-12 relative z-20">
-        {loading ? (
-          <div className="flex flex-col items-center justify-center py-24 bg-white rounded-[3rem] shadow-xl border border-slate-100 reveal-on-scroll">
+        {/* Loading State */}
+        {loading && (
+          <div className="flex flex-col items-center justify-center py-24 bg-white rounded-[3rem] shadow-xl border border-slate-100">
             <Loader2 className="w-10 h-10 text-primary animate-spin" />
-            <p className="text-slate-500 mt-6 font-bold uppercase tracking-widest text-sm text-center">Synchronizing Academic Data...</p>
+            <p className="text-slate-500 mt-6 font-bold uppercase tracking-widest text-sm text-center">
+              Synchronizing Academic Data...
+            </p>
           </div>
-        ) : items.length === 0 ? (
-          <div className="text-center py-24 bg-white rounded-[3rem] border border-dashed border-slate-200 shadow-xl max-w-3xl mx-auto reveal-on-scroll">
+        )}
+
+        {/* Error State */}
+        {!loading && error && (
+          <div className="text-center py-24 bg-white rounded-[3rem] border border-red-100 shadow-xl max-w-3xl mx-auto">
+            <FileText className="w-16 h-16 text-red-200 mx-auto mb-6" />
+            <h2 className="text-2xl font-display text-slate-900 mb-4 uppercase tracking-tighter">
+              Could Not Load Syllabus
+            </h2>
+            <p className="text-slate-500 max-w-md mx-auto font-medium">{error}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="mt-6 px-8 py-3 bg-primary text-white rounded-full font-bold text-sm uppercase tracking-widest hover:opacity-90 transition-all"
+            >
+              Retry
+            </button>
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!loading && !error && items.length === 0 && (
+          <div className="text-center py-24 bg-white rounded-[3rem] border border-dashed border-slate-200 shadow-xl max-w-3xl mx-auto">
             <FileText className="w-16 h-16 text-slate-200 mx-auto mb-6" />
-            <h2 className="text-2xl font-display text-slate-900 mb-4 uppercase tracking-tighter">Updating Curriculum</h2>
-            <p className="text-slate-500 max-w-md mx-auto italic font-medium">We are currently refreshing our academic modules for the upcoming session.</p>
+            <h2 className="text-2xl font-display text-slate-900 mb-4 uppercase tracking-tighter">
+              Updating Curriculum
+            </h2>
+            <p className="text-slate-500 max-w-md mx-auto italic font-medium">
+              We are currently refreshing our academic modules for the upcoming session.
+            </p>
           </div>
-        ) : (
-          <div className="space-y-24 reveal-on-scroll">
+        )}
+
+        {/* Syllabus Grid — only renders when data exists */}
+        {!loading && !error && items.length > 0 && (
+          <div className="space-y-24">
             {Object.keys(groupedItems).map((groupName) => (
               <div key={groupName}>
                 <div className="flex items-center gap-6 mb-10 group">
-                  <div className="w-14 h-14 bg-white rounded-3xl shadow-lg border border-primary/10 flex items-center justify-center text-primary rotate-3 group-hover:rotate-0 transition-all">
+                  <div className="w-14 h-14 bg-white rounded-3xl shadow-lg border border-primary/10 flex items-center justify-center text-primary">
                     <GraduationCap className="w-7 h-7" />
                   </div>
-                  <h2 className="text-2xl font-display text-slate-900 uppercase tracking-tighter border-b-4 border-primary pb-1 group-hover:border-primary/40 transition-colors">
+                  <h2 className="text-2xl font-display text-slate-900 uppercase tracking-tighter border-b-4 border-primary pb-1">
                     {groupName}
                   </h2>
                 </div>
@@ -107,8 +138,12 @@ const SyllabusPage = () => {
                       <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-300 group-hover:bg-primary/10 group-hover:text-primary transition-all duration-500">
                         <BookOpen className="w-6 h-6" />
                       </div>
-                      <h3 className="font-display text-xl text-slate-900 group-hover:text-primary transition-colors leading-tight tracking-tight uppercase">{item.class_name}</h3>
-                      <div className="text-[10px] uppercase font-black text-primary/40 opacity-0 group-hover:opacity-100 tracking-[0.2em] transition-opacity">Details</div>
+                      <h3 className="font-display text-xl text-slate-900 group-hover:text-primary transition-colors leading-tight tracking-tight uppercase">
+                        {item.class_name}
+                      </h3>
+                      <div className="text-[10px] uppercase font-black text-primary/40 opacity-0 group-hover:opacity-100 tracking-[0.2em] transition-opacity">
+                        Details
+                      </div>
                     </button>
                   ))}
                 </div>
@@ -118,13 +153,15 @@ const SyllabusPage = () => {
         )}
       </div>
 
-      {/* Pop-up Dialog Details is now very simple but clean */}
+      {/* Dialog */}
       {selectedClass && (
         <Dialog open={!!selectedClass} onOpenChange={(open) => !open && setSelectedClass(null)}>
-          <DialogContent className="max-w-md rounded-[2.5rem] border-none shadow-3xl bg-white p-0 overflow-hidden outline-none animate-in fade-in zoom-in-95 duration-500">
+          <DialogContent className="max-w-md rounded-[2.5rem] border-none shadow-3xl bg-white p-0 overflow-hidden outline-none">
             <div className="bg-primary/5 p-8 border-b border-primary/10 flex justify-between items-center text-left">
               <div>
-                <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em] leading-none mb-2">Academic Profile</p>
+                <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em] leading-none mb-2">
+                  Academic Profile
+                </p>
                 <DialogTitle className="text-3xl font-display text-slate-900 outline-none leading-none uppercase">
                   {selectedClass.class_name}
                 </DialogTitle>
@@ -138,17 +175,24 @@ const SyllabusPage = () => {
             </div>
 
             <div className="p-10 text-left">
-              <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">
+              <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">
                 Included Subjects
               </h3>
-
               <div className="space-y-3">
-                {selectedClass.subjects.map((sub, idx) => (
-                  <div key={idx} className="flex items-center gap-4 p-4 bg-slate-50 border border-slate-100 rounded-2xl group hover:bg-white transition-all">
-                    <CheckCircle className="w-4 h-4 text-primary" />
-                    <span className="font-bold text-slate-700 text-base">{sub}</span>
-                  </div>
-                ))}
+                {/* Guard against undefined subjects */}
+                {(selectedClass.subjects ?? []).length > 0 ? (
+                  (selectedClass.subjects ?? []).map((sub, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center gap-4 p-4 bg-slate-50 border border-slate-100 rounded-2xl hover:bg-white transition-all"
+                    >
+                      <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                      <span className="font-bold text-slate-700 text-base">{sub}</span>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-slate-400 italic text-sm">No subjects listed for this class.</p>
+                )}
               </div>
             </div>
 
