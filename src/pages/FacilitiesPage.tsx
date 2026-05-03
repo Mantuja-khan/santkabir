@@ -1,11 +1,10 @@
 
-import scienceLab from "@/assets/science-lab.jpg";
+import scienceLab from "@/assets/sciencelab.jpeg";
 import mathsLab from "@/assets/maths-lab.jpg";
 import activityRoom from "@/assets/activity-room.jpg";
-import roboticsLab from "@/assets/robotics-lab.jpg";
+import roboticsLab from "@/assets/roboticlab.jpeg";
 import library from "@/assets/library.jpg";
-import artCraft from "@/assets/art-craft.jpg";
-import aiLab from "@/assets/ai-lab.jpg";
+import artCraft from "@/assets/artandcraft.jpeg";
 import computerLab from "@/assets/computer-lab.jpg";
 
 const facilities = [
@@ -15,7 +14,6 @@ const facilities = [
   { name: "Robotics Lab", img: roboticsLab, desc: "State-of-the-art robotics lab for coding and building robots." },
   { name: "Library", img: library, desc: "A vast collection of books and digital resources for reading and research." },
   { name: "Art & Craft Room", img: artCraft, desc: "A creative haven for painting, sculpting, and crafts." },
-  { name: "AI Lab (Proposed)", img: aiLab, desc: "Upcoming AI Lab for introducing artificial intelligence and data science.", proposed: true },
   { name: "Computer Lab", img: computerLab, desc: "Modern computer lab with latest systems for digital literacy." },
 ];
 

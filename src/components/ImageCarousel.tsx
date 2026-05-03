@@ -4,9 +4,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 interface ImageCarouselProps {
   images: string[];
   interval?: number;
+  objectFit?: "cover" | "contain";
 }
 
-const ImageCarousel = ({ images, interval = 3000 }: ImageCarouselProps) => {
+const ImageCarousel = ({ images, interval = 3000, objectFit = "cover" }: ImageCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const ImageCarousel = ({ images, interval = 3000 }: ImageCarouselProps) => {
   const goToNext = () => setCurrentIndex((prev) => (prev + 1) % images.length);
 
   return (
-    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group">
+    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group bg-white/50 backdrop-blur-sm">
       {images.map((src, index) => (
         <div
           key={src}
@@ -28,7 +29,7 @@ const ImageCarousel = ({ images, interval = 3000 }: ImageCarouselProps) => {
             index === currentIndex ? "opacity-100" : "opacity-0"
           }`}
         >
-          <img src={src} alt={`Slide ${index}`} className="w-full h-full object-cover" />
+          <img src={src} alt={`Slide ${index}`} className={`w-full h-full ${objectFit === "contain" ? "object-contain" : "object-cover"}`} />
         </div>
       ))}
       

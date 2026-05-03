@@ -1,8 +1,15 @@
 import { Link } from "react-router-dom";
 import { GraduationCap, Users, BookOpen, Clock, Award, Star, MapPin } from "lucide-react";
-import hero1 from "@/assets/1stimg.jpeg";
-import hero2 from "@/assets/1st.jpeg";
-import hero3 from "@/assets/2nd.jpeg";
+import hero1 from "@/assets/herosection1.jpeg";
+import hero2 from "@/assets/herosection2.jpeg";
+
+import wa1 from "@/assets/WhatsApp Image 2026-04-01 at 1.30.13 PM (2).jpeg";
+import wa2 from "@/assets/WhatsApp Image 2026-04-01 at 1.30.13 PM.jpeg";
+import wa3 from "@/assets/WhatsApp Image 2026-04-01 at 1.30.14 PM (1).jpeg";
+import wa4 from "@/assets/WhatsApp Image 2026-04-01 at 1.30.14 PM.jpeg";
+import wa5 from "@/assets/WhatsApp Image 2026-04-01 at 1.30.15 PM.jpeg";
+import wa6 from "@/assets/WhatsApp Image 2026-04-01 at 1.30.16 PM (1).jpeg";
+
 import aboutImg1 from "@/assets/1stimg.jpeg";
 import aboutImg2 from "@/assets/2ndimg.jpeg";
 import aboutImg3 from "@/assets/3rdimg.jpeg";
@@ -23,8 +30,13 @@ const features = [
   { icon: Clock, title: "Full Day Programs", desc: "Comprehensive programs including co-curricular activities." },
 ];
 
-const heroImages = [hero1, hero2, hero3];
+const heroImages = [hero1, hero2];
 const aboutImages = [aboutImg1, aboutImg2, aboutImg3, aboutImg4];
+
+const sliderImages = [
+  wa1, wa2, wa3, wa4, wa5, wa6,
+  wa1, wa2, wa3, wa4, wa5, wa6
+];
 
 const programs = [
   { title: "Nursery & KG", range: "Age 3-5", color: "bg-primary" },
@@ -67,11 +79,28 @@ const HomePage = () => (
           </div>
         </div>
         <div className="flex-1 relative w-full overflow-hidden">
-          <div className="blob-shape overflow-hidden shadow-2xl relative z-10 w-full aspect-[4/3] md:aspect-auto">
-            <ImageCarousel images={heroImages} />
+          <div className="rounded-2xl bg-white overflow-hidden shadow-2xl relative z-10 w-full">
+            <ImageCarousel images={heroImages} objectFit="contain" />
           </div>
           <div className="absolute -top-4 -right-4 w-20 h-20 bg-accent rounded-full opacity-60 animate-float z-0" />
           <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-primary rounded-full opacity-40 animate-bounce-slow z-0" />
+        </div>
+      </div>
+    </section>
+
+    {/* Infinite Slider */}
+    <section className="py-8 bg-cream overflow-hidden">
+      <div className="container mx-auto px-4 mb-4">
+        <h3 className="text-center font-display text-2xl text-foreground font-bold opacity-80">Life At St. Kabir</h3>
+      </div>
+      <div className="relative w-full overflow-hidden flex bg-white/50 py-4 shadow-inner">
+        <div className="animate-marquee gap-4 px-2">
+          {/* Double the images for seamless loop */}
+          {[...sliderImages, ...sliderImages].map((src, idx) => (
+            <div key={idx} className="flex-shrink-0 w-64 h-48 rounded-xl overflow-hidden shadow-md">
+              <img src={src} alt={`Gallery slide ${idx}`} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+            </div>
+          ))}
         </div>
       </div>
     </section>
