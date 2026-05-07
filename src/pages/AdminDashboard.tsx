@@ -68,6 +68,7 @@ const AdminDashboard = () => {
   const [galleryFiles, setGalleryFiles] = useState<File[]>([]);
   const [galleryPreviews, setGalleryPreviews] = useState<string[]>([]);
   const [uploading, setUploading] = useState(false);
+  const [useExistingTitle, setUseExistingTitle] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -243,6 +244,8 @@ const AdminDashboard = () => {
       toast({ title: "Error deleting", variant: "destructive" });
     }
   };
+
+  const uniqueTitles = Array.from(new Set(gallery.map((g) => g.title))).filter(Boolean);
 
   if (loading) {
     return (
@@ -477,7 +480,14 @@ const AdminDashboard = () => {
                 </h3>
                 <Dialog open={galleryDialog} onOpenChange={(val) => {
                   setGalleryDialog(val);
-                  if (!val) { setGalleryPreviews([]); setGalleryFiles([]); setGalleryForm({ title: "" }); }
+                  if (!val) {
+                    setGalleryPreviews([]);
+                    setGalleryFiles([]);
+                    setGalleryForm({ title: "" });
+                  } else {
+                    const titles = Array.from(new Set(gallery.map((g) => g.title))).filter(Boolean);
+                    setUseExistingTitle(titles.length > 0);
+                  }
                 }}>
                   <DialogTrigger asChild>
                     <Button onClick={() => setGalleryDialog(true)} className="rounded-xl font-bold px-6 shadow-lg shadow-pink-500/20 bg-pink-600 hover:bg-pink-700 text-white"><Plus className="w-4 h-4 mr-2" /> Upload Multiple</Button>
@@ -525,8 +535,45 @@ const AdminDashboard = () => {
                       )}
 
                       <div className="space-y-2">
-                        <Label className="font-bold text-xs uppercase tracking-widest text-slate-400">All Photos Title</Label>
-                        <Input value={galleryForm.title} onChange={(e) => setGalleryForm((p) => ({ ...p, title: e.target.value }))} placeholder="e.g. Annual Sports Meet 2024" className="rounded-xl h-12 border-2" />
+                        <div className="flex justify-between items-center">
+                          <Label className="font-bold text-xs uppercase tracking-widest text-slate-400">Photos Title</Label>
+                          {uniqueTitles.length > 0 && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setUseExistingTitle(!useExistingTitle);
+                                setGalleryForm((p) => ({ ...p, title: "" }));
+                              }}
+                              className="text-xs text-pink-600 hover:text-pink-700 font-bold"
+                            >
+                              {useExistingTitle ? "+ Create New Title" : "Choose Existing Title"}
+                            </button>
+                          )}
+                        </div>
+                        {uniqueTitles.length > 0 && useExistingTitle ? (
+                          <Select
+                            value={galleryForm.title}
+                            onValueChange={(val) => setGalleryForm((p) => ({ ...p, title: val }))}
+                          >
+                            <SelectTrigger className="rounded-xl h-12 border-2">
+                              <SelectValue placeholder="Select an existing title" />
+                            </SelectTrigger>
+                            <SelectContent className="rounded-xl border-2">
+                              {uniqueTitles.map((title) => (
+                                <SelectItem key={title} value={title}>
+                                  {title}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        ) : (
+                          <Input
+                            value={galleryForm.title}
+                            onChange={(e) => setGalleryForm((p) => ({ ...p, title: e.target.value }))}
+                            placeholder="e.g. Annual Sports Meet 2024"
+                            className="rounded-xl h-12 border-2"
+                          />
+                        )}
                       </div>
 
                       <Button onClick={saveGallery} className="w-full h-12 rounded-xl font-bold text-lg bg-pink-600 shadow-lg shadow-pink-500/20 text-white" disabled={galleryFiles.length === 0 || !galleryForm.title || uploading}>

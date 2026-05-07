@@ -17,13 +17,14 @@ const GalleryPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
 
-  const groupedItems = useMemo(() => {
+  const sortedGroupedItems = useMemo(() => {
     const groups: Record<string, GalleryItem[]> = {};
     items.forEach((item) => {
       if (!groups[item.title]) groups[item.title] = [];
       groups[item.title].push(item);
     });
-    return groups;
+    // Sort sections so that those with the most images appear first (at the top)
+    return Object.entries(groups).sort((a, b) => b[1].length - a[1].length);
   }, [items]);
 
   useEffect(() => {
@@ -66,7 +67,7 @@ const GalleryPage = () => {
           </div>
         ) : (
           <div className="space-y-24">
-            {Object.entries(groupedItems).map(([title, images]) => (
+            {sortedGroupedItems.map(([title, images]) => (
               <div key={title} className="reveal-on-scroll show px-2">
                 <div className="flex items-center gap-4 mb-8">
                   <h3 className="font-display text-2xl md:text-4xl text-slate-900 whitespace-nowrap">
