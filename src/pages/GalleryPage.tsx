@@ -4,7 +4,8 @@ import { X, Maximize2, Loader2, ImageOff } from "lucide-react";
 import { toast } from "sonner";
 import { BACKEND_URL } from "@/config";
 import gallerycta from "@/assets/herosection2.jpeg";
-import image from "../assets/image.png"
+import image from "../assets/image.png";
+import { useSEO } from "@/hooks/useSEO";
 
 interface GalleryItem {
   _id: string;
@@ -12,9 +13,14 @@ interface GalleryItem {
   image_url: string;
 }
 
-
-
 const GalleryPage = () => {
+  useSEO({
+    title: "School Events & Gallery",
+    description: "Discover beautiful photos, memories, and captured highlights of annual day events, sports days, and campus celebrations at St. Kabir Public School.",
+    image: "/src/assets/herosection2.jpeg",
+    url: "/gallery"
+  });
+
   const [items, setItems] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedImg, setSelectedImg] = useState<string | null>(null);

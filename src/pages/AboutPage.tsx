@@ -1,5 +1,6 @@
 import { Award, BookOpen, Users, Heart, Target, Eye } from "lucide-react";
 import ImageCarousel from "@/components/ImageCarousel";
+import { useSEO } from "@/hooks/useSEO";
 import aboutImg1 from "@/assets/1stimg.jpeg";
 import aboutImg2 from "@/assets/2ndimg.jpeg";
 import aboutImg3 from "@/assets/3rdimg.jpeg";
@@ -11,8 +12,16 @@ import message2 from "@/assets/message2.png";
 import aboutcta from "../assets/aboutcta.jpeg"
 const galleryImages = [aboutImg1, aboutImg2, aboutImg3, aboutImg4];
 
-const AboutPage = () => (
-  <div>
+const AboutPage = () => {
+  useSEO({
+    title: "About Our School | Vision & Legacy",
+    description: "A rich legacy of academic excellence and holistic development for over 35+ years. Meet our leaders and discover our values.",
+    image: "/src/assets/aboutcta.jpeg",
+    url: "/about"
+  });
+
+  return (
+    <div>
     {/* Hero */}
     <section className="relative py-24 overflow-hidden">
       <div className="absolute inset-0 z-0">
@@ -295,6 +304,7 @@ const AboutPage = () => (
       </div>
     </section>
   </div>
-);
+  );
+};
 
 export default AboutPage;

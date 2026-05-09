@@ -7,7 +7,16 @@ import library from "@/assets/library.jpg";
 import artCraft from "@/assets/artandcraft.jpeg";
 import computerLab from "@/assets/computer-lab.jpg";
 import facilitiesabout from "@/assets/facilitiescta.jpeg";
-const facilities = [
+import { useSEO } from "@/hooks/useSEO";
+
+interface Facility {
+  name: string;
+  img: string;
+  desc: string;
+  proposed?: boolean;
+}
+
+const facilities: Facility[] = [
   { name: "Science Lab", img: scienceLab, desc: "A fully equipped science laboratory for Physics, Chemistry, and Biology experiments." },
   { name: "Maths Lab", img: mathsLab, desc: "Our mathematics lab makes abstract concepts tangible with geometric models and tools." },
   { name: "Activity Room", img: activityRoom, desc: "A vibrant space for indoor activities and creative workshops for students." },
@@ -17,8 +26,16 @@ const facilities = [
   { name: "Computer Lab", img: computerLab, desc: "Modern computer lab with latest systems for digital literacy." },
 ];
 
-const FacilitiesPage = () => (
-  <div className="min-h-screen bg-white">
+const FacilitiesPage = () => {
+  useSEO({
+    title: "Campus Facilities & Infrastructure",
+    description: "Explore our state-of-the-art Science labs, Robotics labs, library, and modern computer labs providing an innovation-friendly academic environment.",
+    image: "/src/assets/facilitiescta.jpeg",
+    url: "/facilities"
+  });
+
+  return (
+    <div className="min-h-screen bg-white">
     {/* Page Header with Background Image (Top CTA) */}
     <section className="relative py-24 overflow-hidden">
       <div className="absolute inset-0 z-0">
@@ -65,7 +82,8 @@ const FacilitiesPage = () => (
     <div className="py-12 bg-slate-50 border-t border-slate-100 text-center">
       <p className="text-slate-500 text-sm font-bold uppercase tracking-widest opacity-60">© 2026 St.Kabir Public Sr. Sec. School</p>
     </div>
-  </div>
-);
+    </div>
+  );
+};
 
 export default FacilitiesPage;

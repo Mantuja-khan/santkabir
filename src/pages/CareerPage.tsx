@@ -7,8 +7,16 @@ import { Label } from "@/components/ui/label";
 import { Briefcase, Upload, Send, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import career from "../assets/career.png"
+import { useSEO } from "@/hooks/useSEO";
 
 const CareerPage = () => {
+  useSEO({
+    title: "Careers & Teacher Job Openings",
+    description: "Join our team of inspiring educators at St. Kabir Public School. View open job vacancies and apply online today.",
+    image: "/src/assets/career.png",
+    url: "/career"
+  });
+
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);

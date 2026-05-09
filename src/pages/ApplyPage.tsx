@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Link } from "react-router-dom";
 import applynow from "../assets/applynow.png"
 import { GraduationCap, Phone, User, Calendar, Users, ArrowRight, CheckCircle2 } from "lucide-react";
+import { useSEO } from "@/hooks/useSEO";
 
 const classes = [
   "Nursery", "LKG", "UKG",
@@ -17,6 +18,13 @@ const classes = [
 ];
 
 const ApplyPage = () => {
+  useSEO({
+    title: "Online Admission Registration 2026-27",
+    description: "Apply online for Nursery to Class 12th admission at St. Kabir Public School. Simple registration process for the new academic session.",
+    image: "/src/assets/applynow.png",
+    url: "/apply-now"
+  });
+
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);

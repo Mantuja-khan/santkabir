@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { GraduationCap, Users, BookOpen, Clock, Award, Star, MapPin } from "lucide-react";
+import { useSEO } from "@/hooks/useSEO";
 import hero1 from "@/assets/herosection1.jpeg";
 import hero2 from "@/assets/herosection2.jpeg";
 import admissionopen from "../assets/admissionopen.png"
@@ -45,129 +46,137 @@ const programs = [
   { title: "Secondary (9-12)", range: "Age 14-17", color: "bg-teal" },
 ];
 
-const HomePage = () => (
-  <div>
-    {/* Admission Banner */}
-    <div className="bg-primary text-primary-foreground py-3 text-center animate-pulse">
-      <div className="container mx-auto px-4">
-        <p className="font-display text-lg md:text-2xl font-bold">
-          🎓 Admissions Open for 2026-27 — Nursery to Class 12th! (Comm. & Sci.)
-          <Link to="/apply" className="underline font-bold hover:text-accent transition-colors">Apply Now →</Link>
-        </p>
-      </div>
-    </div>
+const HomePage = () => {
+  useSEO({
+    title: "Best School in Dharuhera, Rewari | Nursery to 12th",
+    description: "Empowering students with holistic education, state-of-the-art facilities, and a nurturing environment. Admissions Open for 2026-27.",
+    image: "/logo.jpeg",
+    url: "/"
+  });
 
-    {/* Hero */}
-    <section className="relative bg-cream overflow-hidden">
-      <div className="container mx-auto px-4 py-12 md:py-12 flex flex-col md:flex-row items-center gap-8">
-        <div className="flex-1 text-center md:text-left space-y-6 z-10">
-          <p className="text-primary font-bold uppercase tracking-wider text-sm">Welcome to St.Kabir Public Sr. Sec. School</p>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground leading-tight">
-            We Prepare Your<br />
-            <span className="text-primary italic">Child For Life</span>
-          </h2>
-          <p className="text-muted-foreground max-w-lg mx-auto md:mx-0">
-            Empowering students from Nursery to Class 12th with holistic education, state-of-the-art facilities, and a nurturing environment at Nandrampur Bass road, Alawalpur.
+  return (
+    <div>
+      {/* Admission Banner */}
+      <div className="bg-primary text-primary-foreground py-3 text-center animate-pulse">
+        <div className="container mx-auto px-4">
+          <p className="font-display text-lg md:text-2xl font-bold">
+            🎓 Admissions Open for 2026-27 — Nursery to Class 12th! (Comm. & Sci.)
+            <Link to="/apply" className="underline font-bold hover:text-accent transition-colors">Apply Now →</Link>
           </p>
-          <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-            <Link to="/apply" className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-bold text-lg hover:opacity-90 transition-opacity shadow-lg">
-              Enroll Now
-            </Link>
-            <Link to="/about" className="border-2 border-secondary text-secondary px-8 py-3 rounded-full font-bold text-lg hover:bg-secondary hover:text-secondary-foreground transition-colors">
-              Learn More
-            </Link>
-          </div>
-        </div>
-        <div className="flex-1 relative w-full overflow-hidden">
-          <div className="rounded-2xl bg-white overflow-hidden shadow-2xl relative z-10 w-full">
-            <ImageCarousel images={heroImages} objectFit="contain" />
-          </div>
-          <div className="absolute -top-4 -right-4 w-20 h-20 bg-accent rounded-full opacity-60 animate-float z-0" />
-          <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-primary rounded-full opacity-40 animate-bounce-slow z-0" />
         </div>
       </div>
-    </section>
 
-    {/* Infinite Slider */}
-    <section className="py-8 bg-cream overflow-hidden">
-      <div className="container mx-auto px-4 mb-4">
-        <h3 className="text-center font-display text-2xl text-foreground font-bold opacity-80">Life At St. Kabir</h3>
-      </div>
-      <div className="relative w-full overflow-hidden flex bg-white/50 py-4 shadow-inner">
-        <div className="animate-marquee gap-4 px-2">
-          {/* Double the images for seamless loop */}
-          {[...sliderImages, ...sliderImages].map((src, idx) => (
-            <div key={idx} className="flex-shrink-0 w-64 h-48 rounded-xl overflow-hidden shadow-md">
-              <img src={src} alt={`Gallery slide ${idx}`} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+      {/* Hero */}
+      <section className="relative bg-cream overflow-hidden">
+        <div className="container mx-auto px-4 py-12 md:py-12 flex flex-col md:flex-row items-center gap-8">
+          <div className="flex-1 text-center md:text-left space-y-6 z-10">
+            <p className="text-primary font-bold uppercase tracking-wider text-sm">Welcome to St.Kabir Public Sr. Sec. School</p>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground leading-tight">
+              We Prepare Your<br />
+              <span className="text-primary italic">Child For Life</span>
+            </h2>
+            <p className="text-muted-foreground max-w-lg mx-auto md:mx-0">
+              Empowering students from Nursery to Class 12th with holistic education, state-of-the-art facilities, and a nurturing environment at Nandrampur Bass road, Alawalpur.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+              <Link to="/apply" className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-bold text-lg hover:opacity-90 transition-opacity shadow-lg">
+                Enroll Now
+              </Link>
+              <Link to="/about" className="border-2 border-secondary text-secondary px-8 py-3 rounded-full font-bold text-lg hover:bg-secondary hover:text-secondary-foreground transition-colors">
+                Learn More
+              </Link>
+            </div>
+          </div>
+          <div className="flex-1 relative w-full overflow-hidden">
+            <div className="rounded-2xl bg-white overflow-hidden shadow-2xl relative z-10 w-full">
+              <ImageCarousel images={heroImages} objectFit="contain" />
+            </div>
+            <div className="absolute -top-4 -right-4 w-20 h-20 bg-accent rounded-full opacity-60 animate-float z-0" />
+            <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-primary rounded-full opacity-40 animate-bounce-slow z-0" />
+          </div>
+        </div>
+      </section>
+
+      {/* Infinite Slider */}
+      <section className="py-8 bg-cream overflow-hidden">
+        <div className="container mx-auto px-4 mb-4">
+          <h3 className="text-center font-display text-2xl text-foreground font-bold opacity-80">Life At St. Kabir</h3>
+        </div>
+        <div className="relative w-full overflow-hidden flex bg-white/50 py-4 shadow-inner">
+          <div className="animate-marquee gap-4 px-2">
+            {/* Double the images for seamless loop */}
+            {[...sliderImages, ...sliderImages].map((src, idx) => (
+              <div key={idx} className="flex-shrink-0 w-64 h-48 rounded-xl overflow-hidden shadow-md">
+                <img src={src} alt={`Gallery slide ${idx}`} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="py-16 bg-card reveal-on-scroll">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((f, i) => (
+              <div key={i} className="text-center p-6 rounded-2xl bg-cream hover:shadow-lg transition-shadow group">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <f.icon className="w-8 h-8 text-primary" />
+                </div>
+                <h3 className="font-display text-lg mb-2 text-foreground">{f.title}</h3>
+                <p className="text-sm text-muted-foreground">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About preview */}
+      <section className="py-16 bg-teal-light reveal-on-scroll">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
+          <div className="flex-1 w-full order-2 md:order-1">
+            <ImageCarousel images={aboutImages} />
+          </div>
+          <div className="flex-1 space-y-4">
+            <p className="section-subtitle">About Us</p>
+            <h2 className="section-title !text-left">Learn To Play, Converse With Confidence</h2>
+            <p className="text-muted-foreground leading-relaxed">
+              St. Kabir Public Sr. Sec. School, NRP Bass Road, Alawalpur, Dharuhera, Rewari, has been a beacon of quality education. We provide a balanced curriculum that develops intellectual, physical, and creative potential of every child from Nursery to Class 12th().
+            </p>
+            <div className="flex gap-6">
+              <div className="flex items-start gap-2">
+                <Award className="w-5 h-5 text-primary mt-1" />
+                <div>
+                  <h4 className="font-bold text-foreground">Smart Programs</h4>
+                  <p className="text-xs text-muted-foreground">Modern approach to learning</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <Star className="w-5 h-5 text-primary mt-1" />
+                <div>
+                  <h4 className="font-bold text-foreground">Easy To Learn</h4>
+                  <p className="text-xs text-muted-foreground">Student-centered teaching</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="py-12 bg-secondary reveal-on-scroll">
+        <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6">
+          {stats.map((s, i) => (
+            <div key={i} className="text-center text-secondary-foreground">
+              <p className="font-display text-3xl md:text-4xl">{s.num}</p>
+              <p className="text-sm opacity-80">{s.label}</p>
             </div>
           ))}
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* Features */}
-    <section className="py-16 bg-card reveal-on-scroll">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((f, i) => (
-            <div key={i} className="text-center p-6 rounded-2xl bg-cream hover:shadow-lg transition-shadow group">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <f.icon className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="font-display text-lg mb-2 text-foreground">{f.title}</h3>
-              <p className="text-sm text-muted-foreground">{f.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    {/* About preview */}
-    <section className="py-16 bg-teal-light reveal-on-scroll">
-      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
-        <div className="flex-1 w-full order-2 md:order-1">
-          <ImageCarousel images={aboutImages} />
-        </div>
-        <div className="flex-1 space-y-4">
-          <p className="section-subtitle">About Us</p>
-          <h2 className="section-title !text-left">Learn To Play, Converse With Confidence</h2>
-          <p className="text-muted-foreground leading-relaxed">
-            St. Kabir Public Sr. Sec. School, NRP Bass Road, Alawalpur, Dharuhera, Rewari, has been a beacon of quality education. We provide a balanced curriculum that develops intellectual, physical, and creative potential of every child from Nursery to Class 12th().
-          </p>
-          <div className="flex gap-6">
-            <div className="flex items-start gap-2">
-              <Award className="w-5 h-5 text-primary mt-1" />
-              <div>
-                <h4 className="font-bold text-foreground">Smart Programs</h4>
-                <p className="text-xs text-muted-foreground">Modern approach to learning</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-2">
-              <Star className="w-5 h-5 text-primary mt-1" />
-              <div>
-                <h4 className="font-bold text-foreground">Easy To Learn</h4>
-                <p className="text-xs text-muted-foreground">Student-centered teaching</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* Stats */}
-    <section className="py-12 bg-secondary reveal-on-scroll">
-      <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6">
-        {stats.map((s, i) => (
-          <div key={i} className="text-center text-secondary-foreground">
-            <p className="font-display text-3xl md:text-4xl">{s.num}</p>
-            <p className="text-sm opacity-80">{s.label}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* Programs */}
-    {/* <section className="py-16 bg-card reveal-on-scroll">
+      {/* Programs */}
+      {/* <section className="py-16 bg-card reveal-on-scroll">
       <div className="container mx-auto px-4">
         <p className="section-subtitle">Our Programs</p>
         <h2 className="section-title mb-10">We Meet Kids At Their Level<br />Regardless Of Their Age</h2>
@@ -185,33 +194,33 @@ const HomePage = () => (
       </div>
     </section> */}
 
-    {/* Admission CTA */}
-    <section className="relative py-32 md:py-40 overflow-hidden reveal-on-scroll">
-      <div className="absolute inset-0 z-0 bg-black">
-        <img
-          src={admissionopen}
-          alt="Graduation"
-          className="w-full h-full object-cover opacity-50"
-        />
-        <div className="absolute inset-0  "></div>
-      </div>
-      <div className="container mx-auto px-4 text-center text-primary-foreground relative z-10">
-        <h2 className="font-display text-4xl md:text-6xl mb-8 drop-shadow-2xl text-white ">Admissions Open 2026-27</h2>
-        <p className="text-xl md:text-2xl mb-12 opacity-90 max-w-3xl mx-auto drop-shadow-lg leading-relaxed text-white">
-          Give your child the best start in life! St.Kabir Public Sr. Sec. School is now accepting admissions for Nursery to Class 12th for the academic session 2026-27.
-        </p>
-        <p className="text-lg mb-10 opacity-75 font-semibold text-white">Limited seats available. Enroll your child today!</p>
-        <div className="flex flex-wrap justify-center gap-6">
-          <Link to="/apply" className="bg-white text-primary px-12 py-5 rounded-full font-bold text-xl hover:bg-orange-light transition-all shadow-2xl hover:scale-105 active:scale-95">
-            Apply Now
-          </Link>
-          <a href="tel:9813177106" className="backdrop-blur-md bg-white/10 border-2 border-white/30 text-white px-12 py-5 rounded-full font-bold text-xl hover:bg-white hover:text-primary transition-all shadow-2xl hover:scale-105 active:scale-95">
-            Call: 9813177106
-          </a>
+      {/* Admission CTA */}
+      <section className="relative py-32 md:py-40 overflow-hidden reveal-on-scroll">
+        <div className="absolute inset-0 z-0 bg-black">
+          <img
+            src={admissionopen}
+            alt="Graduation"
+            className="w-full h-full object-cover opacity-50"
+          />
+          <div className="absolute inset-0  "></div>
         </div>
-      </div>
-    </section>
-  </div>
-);
-
+        <div className="container mx-auto px-4 text-center text-primary-foreground relative z-10">
+          <h2 className="font-display text-4xl md:text-6xl mb-8 drop-shadow-2xl text-white ">Admissions Open 2026-27</h2>
+          <p className="text-xl md:text-2xl mb-12 opacity-90 max-w-3xl mx-auto drop-shadow-lg leading-relaxed text-white">
+            Give your child the best start in life! St.Kabir Public Sr. Sec. School is now accepting admissions for Nursery to Class 12th for the academic session 2026-27.
+          </p>
+          <p className="text-lg mb-10 opacity-75 font-semibold text-white">Limited seats available. Enroll your child today!</p>
+          <div className="flex flex-wrap justify-center gap-6">
+            <Link to="/apply" className="bg-white text-primary px-12 py-5 rounded-full font-bold text-xl hover:bg-orange-light transition-all shadow-2xl hover:scale-105 active:scale-95">
+              Apply Now
+            </Link>
+            <a href="tel:9813177106" className="backdrop-blur-md bg-white/10 border-2 border-white/30 text-white px-12 py-5 rounded-full font-bold text-xl hover:bg-white hover:text-primary transition-all shadow-2xl hover:scale-105 active:scale-95">
+              Call: 9813177106
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
 export default HomePage;

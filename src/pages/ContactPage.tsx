@@ -3,8 +3,16 @@ import { useState } from "react";
 import contact from "../assets/contact.png";
 import api from "@/api/client";
 import { toast } from "sonner";
+import { useSEO } from "@/hooks/useSEO";
 
 const ContactPage = () => {
+  useSEO({
+    title: "Contact Us | Get in Touch",
+    description: "Connect with St. Kabir Public School. Find contact phone numbers, official emails, location address, and office operating hours.",
+    image: "/src/assets/contact.png",
+    url: "/contact"
+  });
+
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);

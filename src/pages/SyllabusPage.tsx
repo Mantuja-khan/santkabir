@@ -3,6 +3,7 @@ import api from "@/api/client";
 import { BookOpen, Loader2, FileText, GraduationCap, X, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
 import syllabus from "../assets/syllabus.png";
+import { useSEO } from "@/hooks/useSEO";
 
 interface SyllabusRow {
   _id: string;
@@ -13,6 +14,13 @@ interface SyllabusRow {
 }
 
 const SyllabusPage = () => {
+  useSEO({
+    title: "Class-wise Academic Syllabus 2026-27",
+    description: "Explore the comprehensive class-wise academic syllabus and subjects curriculum for St. Kabir Public Sr. Sec. School, session 2026–27.",
+    image: "/src/assets/syllabus.png",
+    url: "/syllabus"
+  });
+
   const [items, setItems] = useState<SyllabusRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedClass, setSelectedClass] = useState<SyllabusRow | null>(null);
