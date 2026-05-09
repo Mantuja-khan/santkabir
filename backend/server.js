@@ -14,6 +14,7 @@ const Admission = require('./models/Admission');
 const Syllabus = require('./models/Syllabus');
 const Gallery = require('./models/Gallery');
 const Career = require('./models/Career'); // New Career Model
+const Contact = require('./models/Contact');
 
 const app = express();
 app.use(cors({ origin: ['https://stkabirpublicschool.in', 'http://localhost:8080', 'http://localhost:3000'] }));
@@ -81,16 +82,12 @@ app.post('/api/admissions', async (req, res) => {
       to: process.env.RECEIVER_EMAIL,
       subject: `New Admission Form: ${newAdmission.student_name}`,
       html: `
-            <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-                <h2 style="color: #d11;">New Student Admission Request</h2>
-                <p><strong>Name:</strong> ${newAdmission.student_name}</p>
-                <p><strong>Class Applied:</strong> ${newAdmission.class_applied}</p>
-                <p><strong>Father's Name:</strong> ${newAdmission.father_name}</p>
-                <p><strong>Phone:</strong> ${newAdmission.phone_number}</p>
-                <hr/>
-                <p>View this application in the Admin Dashboard.</p>
-            </div>
-        `
+        <h3>New Student Admission Request</h3>
+        <p><b>Name:</b> ${newAdmission.student_name}</p>
+        <p><b>Class Applied:</b> ${newAdmission.class_applied}</p>
+        <p><b>Father's Name:</b> ${newAdmission.father_name}</p>
+        <p><b>Phone:</b> ${newAdmission.phone_number}</p>
+      `
     };
     transporter.sendMail(mailOptions).catch(err => console.log('Email Error:', err));
 
@@ -103,6 +100,10 @@ app.delete('/api/admissions/:id', auth, async (req, res) => {
 });
 
 // --- Career ---
+app.get('/api/career', auth, async (req, res) => {
+  try { res.json(await Career.find().sort({ created_at: -1 })); } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
 app.post('/api/career', upload.single('resume'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ message: 'Resume is required' });
@@ -123,15 +124,13 @@ app.post('/api/career', upload.single('resume'), async (req, res) => {
       to: process.env.RECEIVER_EMAIL,
       subject: `Job Application: ${newCareer.position} - ${newCareer.name}`,
       html: `
-            <div style="font-family: sans-serif; padding: 20px;">
-                <h2 style="color: #2563eb;">New Job Application Received</h2>
-                <p><strong>Applicant Name:</strong> ${newCareer.name}</p>
-                <p><strong>Email:</strong> ${newCareer.email}</p>
-                <p><strong>Phone:</strong> ${newCareer.phone}</p>
-                <p><strong>Applied for Position:</strong> ${newCareer.position}</p>
-                <p>Attached is the resume of the applicant.</p>
-            </div>
-        `,
+        <h3>New Job Application Received</h3>
+        <p><b>Applicant Name:</b> ${newCareer.name}</p>
+        <p><b>Email:</b> ${newCareer.email}</p>
+        <p><b>Phone:</b> ${newCareer.phone}</p>
+        <p><b>Applied for Position:</b> ${newCareer.position}</p>
+        <p>Note: Resume is attached to this email.</p>
+      `,
       attachments: [
         {
           filename: req.file.originalname,
@@ -142,6 +141,61 @@ app.post('/api/career', upload.single('resume'), async (req, res) => {
     transporter.sendMail(mailOptions).catch(err => console.log('Career Email Error:', err));
 
     res.status(201).json(newCareer);
+  } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+app.delete('/api/career/:id', auth, async (req, res) => {
+  try {
+    const item = await Career.findById(req.params.id);
+    if (!item) return res.status(404).json({ message: 'Application not found' });
+    const filePath = path.join(uploadsDir, item.resume_url.split('/').pop());
+    if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+    await Career.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Deleted' });
+  } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+// --- Contact Enquiry ---
+app.get('/api/contact', auth, async (req, res) => {
+  try { res.json(await Contact.find().sort({ created_at: -1 })); } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+app.post('/api/contact', async (req, res) => {
+  try {
+    const { name, email, phone, message } = req.body;
+    if (!name || !email || !phone || !message) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    const newContact = new Contact({ name, email, phone, message });
+    await newContact.save();
+
+    // Send Email Notification to Admin
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: process.env.RECEIVER_EMAIL,
+      subject: `New Contact Enquiry from ${name}`,
+      html: `
+        <h3>New Contact Message</h3>
+        <p><b>Name:</b> ${name}</p>
+        <p><b>Email:</b> ${email}</p>
+        <p><b>Phone:</b> ${phone}</p>
+        <p><b>Message:</b></p>
+        <p>${message}</p>
+      `
+    };
+    transporter.sendMail(mailOptions).catch(err => console.log('Contact Email Error:', err));
+
+    res.status(200).json(newContact);
+  } catch (err) { 
+    res.status(500).json({ message: err.message }); 
+  }
+});
+
+app.delete('/api/contact/:id', auth, async (req, res) => {
+  try {
+    await Contact.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Deleted' });
   } catch (err) { res.status(500).json({ message: err.message }); }
 });
 

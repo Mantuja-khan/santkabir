@@ -28,7 +28,7 @@ type SyllabusRow = {
   _id: string;
   group_name: string;
   class_name: string;
-  subjects: string[];
+  subjects: any[];
   sort_order: number;
 };
 
@@ -36,6 +36,25 @@ type GalleryItem = {
   _id: string;
   title: string;
   image_url: string;
+};
+
+type CareerItem = {
+  _id: string;
+  name: string;
+  email: string;
+  phone: string;
+  position: string;
+  resume_url: string;
+  created_at: string;
+};
+
+type ContactItem = {
+  _id: string;
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  created_at: string;
 };
 
 const groupOptions = [
@@ -52,6 +71,8 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [admissions, setAdmissions] = useState<Admission[]>([]);
+  const [careers, setCareers] = useState<CareerItem[]>([]);
+  const [contacts, setContacts] = useState<ContactItem[]>([]);
   const [syllabus, setSyllabus] = useState<SyllabusRow[]>([]);
   const [gallery, setGallery] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -60,7 +81,10 @@ const AdminDashboard = () => {
   // Syllabus form
   const [syllabusDialog, setSyllabusDialog] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [sForm, setSForm] = useState({ group_name: "", class_name: "", subjects: "", sort_order: "0" });
+  const [sForm, setSForm] = useState({ group_name: "", class_name: "", sort_order: "0" });
+  const [subjectsList, setSubjectsList] = useState<{ name: string; chapters: string }[]>([
+    { name: "", chapters: "" }
+  ]);
 
   // Gallery form
   const [galleryDialog, setGalleryDialog] = useState(false);
@@ -79,10 +103,16 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     setLoading(true);
 
-    // Fetch admissions independently (protected)
+    // Fetch admissions, careers, and contacts (protected)
     try {
-      const { data } = await api.get("/admissions");
-      setAdmissions(Array.isArray(data) ? data : []);
+      const [admRes, carRes, conRes] = await Promise.all([
+        api.get("/admissions"),
+        api.get("/career"),
+        api.get("/contact"),
+      ]);
+      setAdmissions(Array.isArray(admRes.data) ? admRes.data : []);
+      setCareers(Array.isArray(carRes.data) ? carRes.data : []);
+      setContacts(Array.isArray(conRes.data) ? conRes.data : []);
     } catch (err: any) {
       if (err.response?.status === 401) {
         toast({ title: "Session Expired", description: "Please login again.", variant: "destructive" });
@@ -91,10 +121,10 @@ const AdminDashboard = () => {
         navigate("/admin");
         return;
       }
-      toast({ title: "Error fetching admissions", variant: "destructive" });
+      toast({ title: "Error fetching admin data", variant: "destructive" });
     }
 
-    // Fetch others independently (not protected on server usually, but let's be safe)
+    // Fetch others independently
     try {
       const [sylRes, galRes] = await Promise.all([
         api.get("/syllabus"),
@@ -137,20 +167,57 @@ const AdminDashboard = () => {
     }
   };
 
+  const deleteCareer = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this job application?")) return;
+    try {
+      await api.delete(`/career/${id}`);
+      setCareers((prev) => prev.filter((c) => c._id !== id));
+      toast({ title: "Application deleted" });
+    } catch (err) {
+      toast({ title: "Error deleting application", variant: "destructive" });
+    }
+  };
+
+  const deleteContact = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this contact enquiry?")) return;
+    try {
+      await api.delete(`/contact/${id}`);
+      setContacts((prev) => prev.filter((c) => c._id !== id));
+      toast({ title: "Enquiry message deleted" });
+    } catch (err) {
+      toast({ title: "Error deleting message", variant: "destructive" });
+    }
+  };
+
   // Syllabus CRUD
   const openSyllabusForm = (row?: SyllabusRow) => {
     if (row) {
       setEditingId(row._id);
-      setSForm({ group_name: row.group_name, class_name: row.class_name, subjects: row.subjects.join(", "), sort_order: String(row.sort_order) });
+      setSForm({ group_name: row.group_name, class_name: row.class_name, sort_order: String(row.sort_order) });
+      const parsed = (row.subjects ?? []).map((sub) => {
+        if (typeof sub === "string") {
+          return { name: sub, chapters: "" };
+        } else {
+          return { name: sub.name || "", chapters: Array.isArray(sub.chapters) ? sub.chapters.join(", ") : "" };
+        }
+      });
+      setSubjectsList(parsed.length > 0 ? parsed : [{ name: "", chapters: "" }]);
     } else {
       setEditingId(null);
-      setSForm({ group_name: "", class_name: "", subjects: "", sort_order: "0" });
+      setSForm({ group_name: "", class_name: "", sort_order: "0" });
+      setSubjectsList([{ name: "", chapters: "" }]);
     }
     setSyllabusDialog(true);
   };
 
   const saveSyllabus = async () => {
-    const subjects = sForm.subjects.split(",").map((s) => s.trim()).filter(Boolean);
+    const subjects = subjectsList
+      .map((s) => ({
+        name: s.name.trim(),
+        chapters: s.chapters.split(",").map((c) => c.trim()).filter(Boolean),
+      }))
+      .filter((s) => s.name.length > 0);
+
     if (!sForm.group_name || !sForm.class_name || subjects.length === 0) {
       toast({ title: "Please fill all fields", variant: "destructive" });
       return;
@@ -270,6 +337,8 @@ const AdminDashboard = () => {
         <nav className="flex-grow p-4 space-y-2">
           {[
             { id: "admissions", icon: Users, label: "Admissions" },
+            { id: "careers", icon: Files, label: "Careers" },
+            { id: "contacts", icon: LayoutDashboard, label: "Contacts" },
             { id: "syllabus", icon: BookOpen, label: "Syllabus" },
             { id: "gallery", icon: ImageIcon, label: "Gallery" },
           ].map((item) => (
@@ -391,7 +460,7 @@ const AdminDashboard = () => {
                   <DialogTrigger asChild>
                     <Button onClick={() => openSyllabusForm()} className="rounded-xl font-bold px-6 shadow-lg shadow-primary/20"><Plus className="w-4 h-4 mr-2" /> Add Entry</Button>
                   </DialogTrigger>
-                  <DialogContent className="rounded-3xl border-2 sm:max-w-md">
+                  <DialogContent className="rounded-3xl border-2 sm:max-w-lg">
                     <DialogHeader>
                       <DialogTitle className="font-display text-2xl">{editingId ? "Edit Syllabus" : "New Syllabus"}</DialogTitle>
                     </DialogHeader>
@@ -409,10 +478,62 @@ const AdminDashboard = () => {
                         <Label className="font-bold text-xs uppercase tracking-widest text-slate-400">Class Name</Label>
                         <Input value={sForm.class_name} onChange={(e) => setSForm((p) => ({ ...p, class_name: e.target.value }))} placeholder="e.g. Class 5" className="rounded-xl h-12 border-2" />
                       </div>
-                      <div className="space-y-2">
-                        <Label className="font-bold text-xs uppercase tracking-widest text-slate-400">Subjects (comma-separated)</Label>
-                        <Input value={sForm.subjects} onChange={(e) => setSForm((p) => ({ ...p, subjects: e.target.value }))} placeholder="English, Hindi, Mathematics" className="rounded-xl h-12 border-2" />
+                      
+                      <div className="space-y-3">
+                        <div className="flex justify-between items-center">
+                          <Label className="font-bold text-xs uppercase tracking-widest text-slate-400">Subjects & Chapters</Label>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            className="text-xs font-bold rounded-lg border-2 h-8 px-3"
+                            onClick={() => setSubjectsList((p) => [...p, { name: "", chapters: "" }])}
+                          >
+                            + Add Subject
+                          </Button>
+                        </div>
+                        
+                        <div className="space-y-4 max-h-[30vh] overflow-y-auto p-2 border border-slate-100 rounded-xl">
+                          {subjectsList.map((sub, idx) => (
+                            <div key={idx} className="p-3 bg-slate-50 rounded-xl space-y-2 relative border border-slate-100">
+                              {subjectsList.length > 1 && (
+                                <button
+                                  type="button"
+                                  onClick={() => setSubjectsList((p) => p.filter((_, i) => i !== idx))}
+                                  className="absolute top-2 right-2 text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 p-1 rounded-lg"
+                                >
+                                  <X className="w-3.5 h-3.5" />
+                                </button>
+                              )}
+                              <div className="space-y-1 pr-6">
+                                <Label className="text-[10px] font-bold text-slate-400 uppercase">Subject Name</Label>
+                                <Input
+                                  value={sub.name}
+                                  onChange={(e) => {
+                                    const val = e.target.value;
+                                    setSubjectsList((p) => p.map((item, i) => i === idx ? { ...item, name: val } : item));
+                                  }}
+                                  placeholder="e.g. Mathematics"
+                                  className="h-9 rounded-lg border-2"
+                                />
+                              </div>
+                              <div className="space-y-1">
+                                <Label className="text-[10px] font-bold text-slate-400 uppercase">Chapters (comma-separated)</Label>
+                                <Input
+                                  value={sub.chapters}
+                                  onChange={(e) => {
+                                    const val = e.target.value;
+                                    setSubjectsList((p) => p.map((item, i) => i === idx ? { ...item, chapters: val } : item));
+                                  }}
+                                  placeholder="e.g. Real Numbers, Polynomials"
+                                  className="h-9 rounded-lg border-2"
+                                />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
                       </div>
+
                       <div className="space-y-2">
                         <Label className="font-bold text-xs uppercase tracking-widest text-slate-400">Display Order</Label>
                         <Input type="number" value={sForm.sort_order} onChange={(e) => setSForm((p) => ({ ...p, sort_order: e.target.value }))} className="rounded-xl h-12 border-2" />
@@ -447,8 +568,10 @@ const AdminDashboard = () => {
                           <TableCell className="font-bold text-primary">{s.class_name}</TableCell>
                           <TableCell className="text-xs max-w-xs overflow-hidden">
                             <div className="flex flex-wrap gap-1">
-                              {s.subjects.map((sub, si) => (
-                                <span key={si} className="px-2 py-0.5 bg-slate-100 rounded text-slate-600 font-medium">{sub}</span>
+                              {s.subjects.map((sub: any, si) => (
+                                <span key={si} className="px-2 py-0.5 bg-slate-100 rounded text-slate-600 font-medium">
+                                  {typeof sub === "string" ? sub : sub.name}
+                                </span>
                               ))}
                             </div>
                           </TableCell>
@@ -606,6 +729,121 @@ const AdminDashboard = () => {
                       </div>
                     </div>
                   ))}
+                </div>
+              )}
+            </div>
+          </TabsContent>
+
+          {/* Careers Tab */}
+          <TabsContent value="careers" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="bg-white rounded-3xl shadow-xl shadow-primary/5 p-6 border border-border">
+              <div className="flex flex-col md:flex-row justify-between md:items-center mb-6 gap-4">
+                <h3 className="font-display text-xl text-foreground flex items-center gap-3">
+                  <div className="p-2 bg-purple-50 text-purple-600 rounded-lg"><Files className="w-5 h-5" /></div>
+                  Job Applications
+                </h3>
+                <div className="px-4 py-2 bg-slate-100 rounded-full text-xs font-bold text-slate-600 uppercase tracking-widest">{careers.length} Total</div>
+              </div>
+
+              {careers.length === 0 ? (
+                <div className="text-center py-20 bg-slate-50/50 rounded-2xl border-2 border-dashed border-slate-200">
+                  <Files className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                  <p className="text-muted-foreground font-medium">No job applications received yet.</p>
+                </div>
+              ) : (
+                <div className="overflow-x-auto rounded-xl border border-slate-100">
+                  <Table>
+                    <TableHeader className="bg-slate-50">
+                      <TableRow>
+                        <TableHead className="font-bold text-slate-700">Applicant Name</TableHead>
+                        <TableHead className="font-bold text-slate-700">Applied Position</TableHead>
+                        <TableHead className="font-bold text-slate-700">Contact Details</TableHead>
+                        <TableHead className="font-bold text-slate-700">Resume</TableHead>
+                        <TableHead className="font-bold text-slate-700">Applied On</TableHead>
+                        <TableHead className="font-bold text-slate-700 text-right">Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {careers.map((c) => (
+                        <TableRow key={c._id} className="hover:bg-slate-50/50 transition-colors">
+                          <TableCell className="font-bold text-slate-900">{c.name}</TableCell>
+                          <TableCell className="font-semibold text-primary">{c.position}</TableCell>
+                          <TableCell>
+                            <div className="text-xs font-medium">{c.email}</div>
+                            <div className="text-xs font-bold text-slate-400 mt-1">{c.phone}</div>
+                          </TableCell>
+                          <TableCell>
+                            <a
+                              href={`${BACKEND_URL}${c.resume_url}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-xs font-bold text-blue-600 hover:underline bg-blue-50 px-3 py-1.5 rounded-lg inline-block"
+                            >
+                              Download Resume
+                            </a>
+                          </TableCell>
+                          <TableCell className="text-[10px] font-medium text-muted-foreground uppercase">{new Date(c.created_at).toLocaleDateString(undefined, { dateStyle: 'medium' })}</TableCell>
+                          <TableCell className="text-right">
+                            <Button variant="ghost" size="icon" onClick={() => deleteCareer(c._id)} className="hover:bg-red-50 hover:text-red-500 rounded-lg">
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              )}
+            </div>
+          </TabsContent>
+
+          {/* Contacts Tab */}
+          <TabsContent value="contacts" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="bg-white rounded-3xl shadow-xl shadow-primary/5 p-6 border border-border">
+              <div className="flex flex-col md:flex-row justify-between md:items-center mb-6 gap-4">
+                <h3 className="font-display text-xl text-foreground flex items-center gap-3">
+                  <div className="p-2 bg-orange-50 text-orange-600 rounded-lg"><LayoutDashboard className="w-5 h-5" /></div>
+                  Contact Enquiries
+                </h3>
+                <div className="px-4 py-2 bg-slate-100 rounded-full text-xs font-bold text-slate-600 uppercase tracking-widest">{contacts.length} Total</div>
+              </div>
+
+              {contacts.length === 0 ? (
+                <div className="text-center py-20 bg-slate-50/50 rounded-2xl border-2 border-dashed border-slate-200">
+                  <LayoutDashboard className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                  <p className="text-muted-foreground font-medium">No contact enquiries received yet.</p>
+                </div>
+              ) : (
+                <div className="overflow-x-auto rounded-xl border border-slate-100">
+                  <Table>
+                    <TableHeader className="bg-slate-50">
+                      <TableRow>
+                        <TableHead className="font-bold text-slate-700">Name</TableHead>
+                        <TableHead className="font-bold text-slate-700">Contact Details</TableHead>
+                        <TableHead className="font-bold text-slate-700">Message</TableHead>
+                        <TableHead className="font-bold text-slate-700">Received On</TableHead>
+                        <TableHead className="font-bold text-slate-700 text-right">Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {contacts.map((c) => (
+                        <TableRow key={c._id} className="hover:bg-slate-50/50 transition-colors">
+                          <TableCell className="font-bold text-slate-900">{c.name}</TableCell>
+                          <TableCell>
+                            <div className="text-xs font-medium">{c.email}</div>
+                            <div className="text-xs font-bold text-slate-400 mt-1">{c.phone}</div>
+                          </TableCell>
+                          <TableCell className="text-xs text-slate-600 max-w-sm whitespace-pre-wrap">{c.message}</TableCell>
+                          <TableCell className="text-[10px] font-medium text-muted-foreground uppercase">{new Date(c.created_at).toLocaleDateString(undefined, { dateStyle: 'medium' })}</TableCell>
+                          <TableCell className="text-right">
+                            <Button variant="ghost" size="icon" onClick={() => deleteContact(c._id)} className="hover:bg-red-50 hover:text-red-500 rounded-lg">
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 </div>
               )}
             </div>

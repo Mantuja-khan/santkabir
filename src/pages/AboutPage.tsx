@@ -84,92 +84,6 @@ const AboutPage = () => (
           <div className="w-20 h-1 bg-primary mx-auto mt-4"></div>
         </div>
 
-        {/* Director's Message */}
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-          <div className="w-full lg:w-1/3">
-            <div className="relative group max-w-sm mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-[2.5rem] rotate-3 group-hover:rotate-6 transition-transform duration-500 -z-10 opacity-30"></div>
-              <div className="absolute inset-0 bg-slate-900 rounded-[2.5rem] -rotate-3 group-hover:-rotate-1 transition-transform duration-500 -z-10 opacity-10"></div>
-
-              <div className="overflow-hidden rounded-[2.5rem] aspect-[3/4] shadow-2xl border-4 border-white bg-white">
-                <img
-                  src={sir1}
-                  alt="Director"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-
-              <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-white/50 text-center">
-                <h3 className="font-display text-lg text-slate-900">
-                  Rakesh Saini
-                </h3>
-                <p className="text-xs text-primary font-bold uppercase tracking-wider mt-1">
-                  Director
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="w-full lg:w-2/3 space-y-6">
-            <div className="inline-flex p-3 bg-primary/5 text-primary rounded-2xl">
-              <Award className="w-6 h-6" />
-            </div>
-
-            <div>
-              <h2 className="font-display text-4xl lg:text-5xl text-slate-900 leading-tight">
-                Director's Message
-              </h2>
-              <div className="w-24 h-1 bg-primary rounded-full mt-4"></div>
-            </div>
-
-            <div className="space-y-5 text-slate-600 leading-relaxed text-[17px]">
-              <div>
-                <h4 className="text-primary font-bold uppercase tracking-wide mb-3">
-                  Dear Parents/Guardian,
-                </h4>
-
-                <p>
-                  This school, since 1990, has come to symbolize the truest spirit
-                  of dedication to the task of maintaining an excellent standard
-                  of education. I have received unstinted co-operation of the
-                  staff in this arduous task, and the outcome has been consistent
-                  excellence shown by the students not only in the academic
-                  results, but also in various fields of extra-curricular
-                  activities.
-                </p>
-              </div>
-
-              <p>
-                Any new technology likely to prove to be of help to the students
-                is made available by the School, and students are given an
-                opportunity to learn, in accordance with their individual
-                capability.
-              </p>
-
-              <p>
-                For education to be meaningful and rewarding it is essential that
-                the students, the staff and the parents work in unison. To get
-                the best from the School for your ward, you are advised to
-                maintain close contact with the school authorities. I earnestly
-                recommend that parents/guardians should see and sign the School
-                Diary of their wards every day. They must ensure that the lesson
-                and homework assigned for the day is completed. Remarks, if any,
-                made by the teacher should be given full consideration.
-              </p>
-
-              <p>
-                Once you feel that your ward is not making the desired progress,
-                the Principal and Co-ordinator should be contacted without delay.
-                The student’s success and happiness in school and society depends
-                upon both teachers and parents. We welcome every opportunity to
-                discuss your child’s development and progress.
-              </p>
-
-
-            </div>
-          </div>
-        </div>
-
         {/* Director 2's Message */}
         <div className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16 pt-12 border-t border-slate-100">
           <div className="w-full lg:w-1/3">
@@ -269,6 +183,93 @@ const AboutPage = () => (
             </div>
           </div>
         </div>
+        {/* Director's Message */}
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          <div className="w-full lg:w-1/3">
+            <div className="relative group max-w-sm mx-auto">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-[2.5rem] rotate-3 group-hover:rotate-6 transition-transform duration-500 -z-10 opacity-30"></div>
+              <div className="absolute inset-0 bg-slate-900 rounded-[2.5rem] -rotate-3 group-hover:-rotate-1 transition-transform duration-500 -z-10 opacity-10"></div>
+
+              <div className="overflow-hidden rounded-[2.5rem] aspect-[3/4] shadow-2xl border-4 border-white bg-white">
+                <img
+                  src={sir1}
+                  alt="Director"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+
+              <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-white/50 text-center">
+                <h3 className="font-display text-lg text-slate-900">
+                  Rakesh Saini
+                </h3>
+                <p className="text-xs text-primary font-bold uppercase tracking-wider mt-1">
+                  Director
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full lg:w-2/3 space-y-6">
+            <div className="inline-flex p-3 bg-primary/5 text-primary rounded-2xl">
+              <Award className="w-6 h-6" />
+            </div>
+
+            <div>
+              <h2 className="font-display text-4xl lg:text-5xl text-slate-900 leading-tight">
+                Director's Message
+              </h2>
+              <div className="w-24 h-1 bg-primary rounded-full mt-4"></div>
+            </div>
+
+            <div className="space-y-5 text-slate-600 leading-relaxed text-[17px]">
+              <div>
+                <h4 className="text-primary font-bold uppercase tracking-wide mb-3">
+                  Dear Parents/Guardian,
+                </h4>
+
+                <p>
+                  This school, since 1990, has come to symbolize the truest spirit
+                  of dedication to the task of maintaining an excellent standard
+                  of education. I have received unstinted co-operation of the
+                  staff in this arduous task, and the outcome has been consistent
+                  excellence shown by the students not only in the academic
+                  results, but also in various fields of extra-curricular
+                  activities.
+                </p>
+              </div>
+
+              <p>
+                Any new technology likely to prove to be of help to the students
+                is made available by the School, and students are given an
+                opportunity to learn, in accordance with their individual
+                capability.
+              </p>
+
+              <p>
+                For education to be meaningful and rewarding it is essential that
+                the students, the staff and the parents work in unison. To get
+                the best from the School for your ward, you are advised to
+                maintain close contact with the school authorities. I earnestly
+                recommend that parents/guardians should see and sign the School
+                Diary of their wards every day. They must ensure that the lesson
+                and homework assigned for the day is completed. Remarks, if any,
+                made by the teacher should be given full consideration.
+              </p>
+
+              <p>
+                Once you feel that your ward is not making the desired progress,
+                the Principal and Co-ordinator should be contacted without delay.
+                The student’s success and happiness in school and society depends
+                upon both teachers and parents. We welcome every opportunity to
+                discuss your child’s development and progress.
+              </p>
+
+
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </section>
 
