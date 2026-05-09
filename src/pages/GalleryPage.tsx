@@ -3,6 +3,8 @@ import api from "@/api/client";
 import { X, Maximize2, Loader2, ImageOff } from "lucide-react";
 import { toast } from "sonner";
 import { BACKEND_URL } from "@/config";
+import gallerycta from "@/assets/herosection2.jpeg";
+import image from "../assets/image.png"
 
 interface GalleryItem {
   _id: string;
@@ -45,12 +47,19 @@ const GalleryPage = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <section className="bg-slate-900 py-20 text-center">
-        <h1 className="font-display text-4xl md:text-6xl text-white mb-4">School Gallery</h1>
-        <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
-        <p className="text-slate-400 max-w-xl mx-auto px-4 uppercase tracking-widest text-sm font-bold">
-          Capturing the spirit of St.Kabir Public School
-        </p>
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img
+            src={image}
+            alt="School Gallery"
+            className="w-full h-full object-cover object-[center_45%] brightness-50"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60"></div>
+        </div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h1 className="font-display text-4xl md:text-6xl text-white mb-4 drop-shadow-xl animate-in fade-in slide-in-from-top-10 duration-1000">School Gallery</h1>
+          <p className="text-xl text-white/90 max-w-2xl mx-auto drop-shadow-lg">Capturing the vibrant spirit, achievements, and beautiful memories of St. Kabir Public Sr. Sec. School.</p>
+        </div>
       </section>
 
       <div className="container mx-auto px-4 py-16">

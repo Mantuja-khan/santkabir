@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { GraduationCap, Users, BookOpen, Clock, Award, Star, MapPin } from "lucide-react";
 import hero1 from "@/assets/herosection1.jpeg";
 import hero2 from "@/assets/herosection2.jpeg";
-
+import admissionopen from "../assets/admissionopen.png"
 import wa1 from "@/assets/WhatsApp Image 2026-04-01 at 1.30.13 PM (2).jpeg";
 import wa2 from "@/assets/WhatsApp Image 2026-04-01 at 1.30.13 PM.jpeg";
 import wa3 from "@/assets/WhatsApp Image 2026-04-01 at 1.30.14 PM (1).jpeg";
@@ -50,8 +50,8 @@ const HomePage = () => (
     {/* Admission Banner */}
     <div className="bg-primary text-primary-foreground py-3 text-center animate-pulse">
       <div className="container mx-auto px-4">
-        <p className="font-display text-lg md:text-2xl">
-          🎓 Admissions Open for 2026-27 — Nursery to Class 12th!{" "}
+        <p className="font-display text-lg md:text-2xl font-bold">
+          🎓 Admissions Open for 2026-27 — Nursery to Class 12th! (Comm. & Sci.)
           <Link to="/apply" className="underline font-bold hover:text-accent transition-colors">Apply Now →</Link>
         </p>
       </div>
@@ -132,7 +132,7 @@ const HomePage = () => (
           <p className="section-subtitle">About Us</p>
           <h2 className="section-title !text-left">Learn To Play, Converse With Confidence</h2>
           <p className="text-muted-foreground leading-relaxed">
-            St. Kabir Public Sr. Sec. School, NRP Bass Road, Alawalpur, Dharuhera, Rewari, has been a beacon of quality education. We provide a balanced curriculum that develops intellectual, physical, and creative potential of every child from Nursery to Class 12th.
+            St. Kabir Public Sr. Sec. School, NRP Bass Road, Alawalpur, Dharuhera, Rewari, has been a beacon of quality education. We provide a balanced curriculum that develops intellectual, physical, and creative potential of every child from Nursery to Class 12th().
           </p>
           <div className="flex gap-6">
             <div className="flex items-start gap-2">
@@ -187,20 +187,20 @@ const HomePage = () => (
 
     {/* Admission CTA */}
     <section className="relative py-32 md:py-40 overflow-hidden reveal-on-scroll">
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 bg-black">
         <img
-          src="https://i.pinimg.com/1200x/63/54/0d/63540d3056c21bdb9c62ef085f0e198d.jpg"
+          src={admissionopen}
           alt="Graduation"
-          className="w-full h-full object-cover brightness-[0.25]"
+          className="w-full h-full object-cover opacity-50"
         />
-        <div className="absolute inset-0 bg-primary/40 backdrop-blur-[2px]"></div>
+        <div className="absolute inset-0  "></div>
       </div>
       <div className="container mx-auto px-4 text-center text-primary-foreground relative z-10">
-        <h2 className="font-display text-4xl md:text-6xl mb-8 drop-shadow-2xl">Admissions Open 2026-27</h2>
-        <p className="text-xl md:text-2xl mb-12 opacity-90 max-w-3xl mx-auto drop-shadow-lg leading-relaxed">
+        <h2 className="font-display text-4xl md:text-6xl mb-8 drop-shadow-2xl text-white ">Admissions Open 2026-27</h2>
+        <p className="text-xl md:text-2xl mb-12 opacity-90 max-w-3xl mx-auto drop-shadow-lg leading-relaxed text-white">
           Give your child the best start in life! St.Kabir Public Sr. Sec. School is now accepting admissions for Nursery to Class 12th for the academic session 2026-27.
         </p>
-        <p className="text-lg mb-10 opacity-75 font-semibold">Limited seats available. Enroll your child today!</p>
+        <p className="text-lg mb-10 opacity-75 font-semibold text-white">Limited seats available. Enroll your child today!</p>
         <div className="flex flex-wrap justify-center gap-6">
           <Link to="/apply" className="bg-white text-primary px-12 py-5 rounded-full font-bold text-xl hover:bg-orange-light transition-all shadow-2xl hover:scale-105 active:scale-95">
             Apply Now

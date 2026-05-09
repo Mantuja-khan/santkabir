@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Link } from "react-router-dom";
+import applynow from "../assets/applynow.png"
 import { GraduationCap, Phone, User, Calendar, Users, ArrowRight, CheckCircle2 } from "lucide-react";
 
 const classes = [
@@ -61,7 +62,7 @@ const ApplyPage = () => {
             <CheckCircle2 className="w-12 h-12 text-green-600" />
           </div>
           <h2 className="font-display text-3xl text-foreground mb-4">Application Received!</h2>
-          <p className="text-muted-foreground mb-8 text-lg">Thank you for applying to St.Kabir Public School. Our admissions team will review your application and contact you on the provided phone number shortly.</p>
+          <p className="text-muted-foreground mb-8 text-lg">Thank you for applying to St. Kabir Public Sr. Sec. School. Our admissions team will review your application and contact you on the provided phone number shortly.</p>
           <Link to="/">
             <Button className="w-full rounded-full py-6 font-bold text-lg">Back to Home</Button>
           </Link>
@@ -73,18 +74,18 @@ const ApplyPage = () => {
   return (
     <div className="min-h-screen bg-cream/30 pb-20">
       {/* Hero section */}
-      <section className="relative py-24 overflow-hidden">
+      <section className="relative py-24 overflow-hidden  ">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://i.pinimg.com/1200x/63/54/0d/63540d3056c21bdb9c62ef085f0e198d.jpg"
+            src={applynow}
             alt="School Campus"
-            className="w-full h-full object-cover brightness-50"
+            className="w-full h-full object-cover brightness-50 object-[center_70%]"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
         </div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="font-display text-4xl md:text-7xl text-white mb-6 animate-in fade-in slide-in-from-top-10 duration-1000">Online Admission</h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto drop-shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">Start your child's journey with St.Kabir Public School today. Fill out the application form below to start the admission process.</p>
+          <p className="text-xl text-white/90 max-w-2xl mx-auto drop-shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">Start your child's journey with St. Kabir Public Sr. Sec. School today. Fill out the application form below to start the admission process.</p>
         </div>
       </section>
 

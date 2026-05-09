@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Briefcase, Upload, Send, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import career from "../assets/career.png"
 
 const CareerPage = () => {
   const { toast } = useToast();
@@ -66,7 +67,7 @@ const CareerPage = () => {
             <CheckCircle2 className="w-12 h-12 text-green-600" />
           </div>
           <h2 className="font-display text-3xl text-foreground mb-4">Application Received!</h2>
-          <p className="text-muted-foreground mb-8 text-lg">Thank you for your interest in joining St.Kabir Public School. We have received your resume and will get back to you if your profile matches our requirements.</p>
+          <p className="text-muted-foreground mb-8 text-lg">Thank you for your interest in joining St. Kabir Public Sr. Sec. School. We have received your resume and will get back to you if your profile matches our requirements.</p>
           <Link to="/">
             <Button className="w-full rounded-full py-6 font-bold text-lg">Back to Home</Button>
           </Link>
@@ -81,7 +82,7 @@ const CareerPage = () => {
       <section className="relative py-28 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://i.pinimg.com/1200x/63/54/0d/63540d3056c21bdb9c62ef085f0e198d.jpg"
+            src={career}
             alt="School Campus"
             className="w-full h-full object-cover brightness-[0.35]"
           />
@@ -109,7 +110,7 @@ const CareerPage = () => {
                 <Briefcase className="w-12 h-12 md:w-16 md:h-16 mb-6 md:mb-8 text-white/40" />
                 <h2 className="font-display text-2xl md:text-3xl mb-4 md:mb-6">Work With Us</h2>
                 <p className="text-white/90 text-sm md:text-base leading-relaxed mb-6 md:mb-8">
-                  At St.Kabir Public School, we value innovation, dedication, and a love for teaching. Join a community that supports your growth and empowers you to make a difference.
+                  At St. Kabir Public Sr. Sec. School, we value innovation, dedication, and a love for teaching. Join a community that supports your growth and empowers you to make a difference.
                 </p>
                 <div className="space-y-3 md:space-y-4">
                   <div className="flex items-center gap-3 md:gap-4 text-xs md:text-sm font-semibold">

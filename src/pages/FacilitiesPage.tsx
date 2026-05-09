@@ -6,7 +6,7 @@ import roboticsLab from "@/assets/roboticlab.jpeg";
 import library from "@/assets/library.jpg";
 import artCraft from "@/assets/artandcraft.jpeg";
 import computerLab from "@/assets/computer-lab.jpg";
-
+import facilitiesabout from "@/assets/facilitiescta.jpeg";
 const facilities = [
   { name: "Science Lab", img: scienceLab, desc: "A fully equipped science laboratory for Physics, Chemistry, and Biology experiments." },
   { name: "Maths Lab", img: mathsLab, desc: "Our mathematics lab makes abstract concepts tangible with geometric models and tools." },
@@ -23,7 +23,7 @@ const FacilitiesPage = () => (
     <section className="relative py-24 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img
-          src="https://i.pinimg.com/1200x/63/54/0d/63540d3056c21bdb9c62ef085f0e198d.jpg"
+          src={facilitiesabout}
           alt="School"
           className="w-full h-full object-cover brightness-50"
         />
@@ -36,7 +36,7 @@ const FacilitiesPage = () => (
         </h1>
 
         <p className="max-w-3xl mx-auto text-lg md:text-2xl opacity-90 font-light leading-relaxed drop-shadow-lg">
-          Providing a world-class environment where curiosity meets innovation and excellence at St.Kabir Public School.
+          Providing a world-class environment where curiosity meets innovation and excellence at St. Kabir Public Sr. Sec. School.
         </p>
       </div>
     </section>

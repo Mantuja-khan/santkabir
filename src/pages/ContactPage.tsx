@@ -1,5 +1,6 @@
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { useState } from "react";
+import contact from "../assets/contact.png"
 
 const ContactPage = () => {
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
@@ -15,9 +16,9 @@ const ContactPage = () => {
       <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://i.pinimg.com/1200x/63/54/0d/63540d3056c21bdb9c62ef085f0e198d.jpg"
+            src={contact}
             alt="School Exterior"
-            className="w-full h-full object-cover brightness-50"
+            className="w-full h-full object-cover object-[center_80%] brightness-50"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
         </div>

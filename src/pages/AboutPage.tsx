@@ -8,7 +8,7 @@ import sir1 from "@/assets/sir1.png";
 import sir2 from "@/assets/sir2.jpeg";
 import message1 from "@/assets/message1.png";
 import message2 from "@/assets/message2.png";
-
+import aboutcta from "../assets/aboutcta.jpeg"
 const galleryImages = [aboutImg1, aboutImg2, aboutImg3, aboutImg4];
 
 const AboutPage = () => (
@@ -18,15 +18,15 @@ const AboutPage = () => (
       <div className="absolute inset-0 z-0">
         <img
 
-          src="https://i.pinimg.com/1200x/63/54/0d/63540d3056c21bdb9c62ef085f0e198d.jpg"
+          src={aboutcta}
           alt="School"
-          className="w-full h-full object-cover brightness-50"
+          className="w-full h-full object-cover object-[center_25%] brightness-50"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60"></div>
       </div>
       <div className="container mx-auto px-4 text-center relative z-10">
         <h1 className="font-display text-4xl md:text-6xl text-white mb-4 drop-shadow-xl animate-in fade-in slide-in-from-top-10 duration-1000">About Our School</h1>
-        <p className="text-xl text-white/90 max-w-2xl mx-auto drop-shadow-lg">A legacy of quality education and holistic development since 25+ years.</p>
+        <p className="text-xl text-white/90 max-w-2xl mx-auto drop-shadow-lg">A legacy of quality education and holistic development since 35+ years.</p>
       </div>
     </section>
     {/* About content */}

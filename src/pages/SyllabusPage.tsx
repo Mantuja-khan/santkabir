@@ -3,6 +3,7 @@ import api from "@/api/client";
 import { BookOpen, X, Loader2, FileText, CheckCircle, GraduationCap } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import syllabus from "../assets/syllabus.png"
 
 interface SyllabusRow {
   _id: string;
@@ -57,9 +58,9 @@ const SyllabusPage = () => {
       <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://i.pinimg.com/1200x/63/54/0d/63540d3056c21bdb9c62ef085f0e198d.jpg"
+            src={syllabus}
             alt="School"
-            className="w-full h-full object-cover brightness-50"
+            className="w-full h-full object-cover object-[center_35%] brightness-50"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60" />
         </div>
