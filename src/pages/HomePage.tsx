@@ -11,6 +11,7 @@ import wa4 from "@/assets/WhatsApp Image 2026-04-01 at 1.30.14 PM.jpeg";
 import wa5 from "@/assets/WhatsApp Image 2026-04-01 at 1.30.15 PM.jpeg";
 import wa6 from "@/assets/WhatsApp Image 2026-04-01 at 1.30.16 PM (1).jpeg";
 
+
 import aboutImg1 from "@/assets/1stimg.jpeg";
 import aboutImg2 from "@/assets/2ndimg.jpeg";
 import aboutImg3 from "@/assets/3rdimg.jpeg";
